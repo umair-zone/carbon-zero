@@ -1,10 +1,10 @@
 import {Row,Card,Button } from 'antd';
 import React from 'react';
 
-const ReportCard = () => {
+const ReportCard = (props) => {
     return (
           <Card
-          title="Report 1 - 2022-06-07"
+          title={props.title+" - "+props.createdAt}
           extra={
            <div direction="row">  
                <Button key="1" onClick={{}}
@@ -26,8 +26,8 @@ const ReportCard = () => {
           >
           <Row direction="row"
           style={{display: 'flex'}}>  
-          <p style={{fontWeight:"lighter"}}>Created At: 2022-01-01 </p>
-          <p style={{fontWeight:"lighter",marginLeft:"50px"}}>Created by : John</p>
+          <p style={{fontWeight:"lighter"}}>Created At: {props.createdAt} </p>
+          <p style={{fontWeight:"lighter",marginLeft:"50px"}}>Created by : {props.createdBy}</p>
           </Row>
 
         </Card>

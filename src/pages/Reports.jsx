@@ -16,9 +16,9 @@ const Reports = () => {
         >
         <Layout className="layout" style={{backgroundColor:"white"}} >           
               <ReportPanel/>
-              <ReportCard/>
-              <ReportCard/>
-              <ReportCard/>
+              <ReportCard title ="Report 1"  createdBy="Umair" createdAt="2022-06-01"/>
+              <ReportCard title ="Report 2"  createdBy="Umair" createdAt="2022-06-02"/>
+              <ReportCard title ="Report 3"  createdBy="Prasan" createdAt="2022-06-03"/>
         </Layout>
         </div>    
     )

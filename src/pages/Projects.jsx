@@ -14,9 +14,9 @@ const Projects = () => {
         >
         <Layout className="layout" style={{backgroundColor:"white"}} >           
               <PojectPanel/>
-              <ProjectCard/>
-              <ProjectCard/>
-              <ProjectCard/>
+              <ProjectCard title ="First Project" type="Cement" createdBy="Umair" createdAt="2022-06-01"/>
+              <ProjectCard title ="Second Project" type="Highway"  createdBy="Prasan" createdAt="2022-06-02" />
+              <ProjectCard title ="Third Project" type="Other" createdBy="Ishani" createdAt="2022-06-03"/>
         </Layout>
         </div>    
     )
