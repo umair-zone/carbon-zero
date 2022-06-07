@@ -1,13 +1,22 @@
 import React from 'react'
-
+import {Layout} from 'antd';
+import PojectPanel from '../components/ProjectPanel';
+import ProjectCard from  '../atoms/ProjectCard'
 
 const Projects = () => {
     return (
-        <div>
-            <h1>Projects</h1>
-        </div>
+        <div className="Layout"
+          style={{
+            padding: '40px',
+            height:  '100vh',
+            overflow: 'auto',
+          }}
+        >
+        <Layout className="layout" style={{backgroundColor:"white"}} >           
+              <PojectPanel/>
+              <ProjectCard/>
+        </Layout>
+        </div>    
     )
 }
-
-
 export default Projects
