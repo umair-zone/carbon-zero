@@ -15,6 +15,8 @@ const Projects = () => {
         <Layout className="layout" style={{backgroundColor:"white"}} >           
               <PojectPanel/>
               <ProjectCard/>
+              <ProjectCard/>
+              <ProjectCard/>
         </Layout>
         </div>    
     )

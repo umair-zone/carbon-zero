@@ -17,6 +17,8 @@ const Reports = () => {
         <Layout className="layout" style={{backgroundColor:"white"}} >           
               <ReportPanel/>
               <ReportCard/>
+              <ReportCard/>
+              <ReportCard/>
         </Layout>
         </div>    
     )

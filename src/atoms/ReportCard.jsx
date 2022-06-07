@@ -1,4 +1,4 @@
-import { Card,Button } from 'antd';
+import {Row,Card,Button } from 'antd';
 import React from 'react';
 
 const ReportCard = () => {
@@ -22,10 +22,14 @@ const ReportCard = () => {
           style={{
             width: "100%",
             marginTop:"10px"
-
           }}
           >
-          <p>Created At: 2022-01-01   Created by : John</p>
+          <Row direction="row"
+          style={{display: 'flex'}}>  
+          <p style={{fontWeight:"lighter"}}>Created At: 2022-01-01 </p>
+          <p style={{fontWeight:"lighter",marginLeft:"50px"}}>Created by : John</p>
+          </Row>
+
         </Card>
               )
 }
