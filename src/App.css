@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 .App {
   text-align: center;
 }
@@ -36,3 +37,11 @@
     transform: rotate(360deg);
   }
 }
+=======
+@import '~antd/dist/antd.css';
+
+
+.App{
+     flex: content;     
+}
+>>>>>>> Stashed changes
