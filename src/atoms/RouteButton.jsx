@@ -13,8 +13,8 @@ const RouteButton = (props) => {
                 backgroundColor:'#dcdcdc',
                 padding:'5px',
                 alignSelf:'flex-end',
-                marginLeft:'20px',
-                width:'150px',
+                marginLeft:'10px',
+                width:'120px',
                 }}>{props.title}
                </Button>           
                </>

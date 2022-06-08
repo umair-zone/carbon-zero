@@ -23,16 +23,14 @@ const ReportPanel = () => (
                       </Item>
                       <Item>
                       <ProjectButton 
-                            title="Edit Project"
-                            modaltitle="Edit a Project"
-                            />  
+                        title="Edit Project"
+                        modaltitle="Edit a Project"
+                       />  
                       <RouteButton title="New Report" onClick={sayHello}/>
                       </Item>
               </Row>     
 
-              <Row direction="row"
-                  style={{display: 'flex',
-                     justifyContent:'space-between'}}>
+              <Row direction="row" style={{display: 'flex',justifyContent:'space-between'}}>
                   <Item>
                   <Search
                             placeholder="search"
