@@ -3,6 +3,12 @@ import {Layout} from 'antd';
 import ReportPanel from '../components/ReportPanel';
 import ReportCard from  '../atoms/ReportCard'
 
+const details=[
+  {id:1,title :"Report 1", type:"Cement", createdBy:"Umair", createdAt:"2022-06-01"},
+  {id:2,title :"Report 2", type:"Highway", createdBy:"Prasan",createdAt:"2022-06-02" },
+  {id:3,title :"Report 3",type:"Other",createdBy:"Ishani",createdAt:"2022-06-03"}
+]
+
 
 const Reports = () => {
 
@@ -16,14 +22,13 @@ const Reports = () => {
         >
         <Layout className="layout" style={{backgroundColor:"white"}} >           
               <ReportPanel/>
-              <ReportCard title ="Report 1"  createdBy="Umair" createdAt="2022-06-01"/>
-              <ReportCard title ="Report 2"  createdBy="Umair" createdAt="2022-06-02"/>
-              <ReportCard title ="Report 3"  createdBy="Prasan" createdAt="2022-06-03"/>
+              {details.map(({id,title,type,createdBy,createdAt})=>(
+                <ReportCard key={id} title ={title} createdBy={createdBy} createdAt={createdAt}/>
+              ))}   
         </Layout>
         </div>    
     )
 
 }
-
 
 export default Reports
