@@ -16,7 +16,6 @@ const details=[
   {id:3,title :"Report 3",type:"Other",createdBy:"Ishani",createdAt:"2022-06-03"}
 ]
 
-
 const Reports = () => {
 
     return (
@@ -31,5 +30,4 @@ const Reports = () => {
     )
 
 }
-
 export default Reports

@@ -10,19 +10,16 @@ const PojectPanel = () => {
           return(
             <>
             <Form>
-              <Row direction="row"
-                  style={{display: 'flex',justifyContent:'space-between'}}>
+              <Row direction="row" style={{display: 'flex',justifyContent:'space-between'}}>
                      <Form.Item
                         label="Search Projects:"
                         name="search"                                              
                       >
-                      <Search
-                            placeholder="search"
-                            onSearch={onSearch}
-                            style={{
-                                    alignItems:"flex-start"
-                               }}
-                      />
+                          <Search
+                                placeholder="search"
+                                onSearch={onSearch}
+                                style={{alignItems:"flex-start" }}
+                          />
                       </Form.Item>
                       <Form.Item>
                             <ProjectButton 
