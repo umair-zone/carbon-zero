@@ -1,6 +1,13 @@
-import { Button,Input,Row} from 'antd';
+import {Input,Row} from 'antd';
 import Item from 'antd/lib/list/Item';
+import RouteButton from '../atoms/RouteButton';
+import ProjectButton from '../atoms/ProjectButton';
 import React from 'react';
+
+function sayHello() {
+   alert('You clicked New Report!');
+ }
+
 const { Search } = Input;
 
 const onSearch = (value) => console.log(value);
@@ -15,8 +22,11 @@ const ReportPanel = () => (
                         <p style={{fontSize:"20px",color:"GrayText",width:"200px",marginLeft:"0px"}}>Project Type</p>  
                       </Item>
                       <Item>
-                      <Button key="1" style={{backgroundColor:"#dcdcdc",marginRight:"10px"}} onClick={{}}>Edit Project</Button>
-                      <Button key="2" style={{backgroundColor:"#dcdcdc"}} onClick={{}}>New Report</Button> 
+                      <ProjectButton 
+                            title="Edit Project"
+                            modaltitle="Edit a Project"
+                            />  
+                      <RouteButton title="New Report" onClick={sayHello}/>
                       </Item>
               </Row>     
 

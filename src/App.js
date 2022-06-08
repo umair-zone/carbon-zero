@@ -17,7 +17,8 @@ function App() {
         <Navigate to="projects" ></Navigate>
       </Route>   */}
     </Routes>
-   );
+   
+  );
 }
 
 export default App;

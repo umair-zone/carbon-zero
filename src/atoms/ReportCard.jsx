@@ -1,5 +1,10 @@
-import {Row,Card,Button } from 'antd';
+import {Row,Card} from 'antd';
 import React from 'react';
+import RouteButton from './RouteButton';
+
+function sayHello() {
+  alert('You clicked View->Report!');
+}
 
 const ReportCard = (props) => {
     return (
@@ -7,16 +12,7 @@ const ReportCard = (props) => {
           title={props.title+" - "+props.createdAt}
           extra={
            <div direction="row">  
-               <Button key="1" onClick={{}}
-                    style={{
-                          backgroundColor:"#dcdcdc",
-                          padding:"5px",
-                          alignSelf: "flex-end",
-                          marginLeft: "20px",
-                          width: "100px"
-                    }}>
-                              View
-               </Button> 
+               <RouteButton title="View" onClick={sayHello}/>
             </div>
           }
           style={{
@@ -29,7 +25,6 @@ const ReportCard = (props) => {
           <p style={{fontWeight:"lighter"}}>Created At: {props.createdAt} </p>
           <p style={{fontWeight:"lighter",marginLeft:"50px"}}>Created by : {props.createdBy}</p>
           </Row>
-
         </Card>
               )
 }
