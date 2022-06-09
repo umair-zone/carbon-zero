@@ -15,30 +15,39 @@ const { Search } = Input;
 
 const onSearch = (value) => console.log(value);
 
+const details=[
+  {id:1, projectId:1,project:"First Project",title :"Report 1", type:"Cement", createdBy:"Umair", createdAt:"2022-06-01"},
+  {id:2,projectId:2,project:"Second Project",title :"Report 2", type:"Highway", createdBy:"Prasan",createdAt:"2022-06-02" },
+  {id:3,projectId:3,project:"Third Project",title :"Report 3",type:"Other",createdBy:"Ishani",createdAt:"2022-06-03"}
+]
+
 const StyledRow = styled(Row)`
     display: flex;
     justifyContent:space-between;
     padding: 5px;
 `;
 
-
-const ReportPanel = (props) => {
+const ReportPanel = () => {
   
   const {projectId} = useParams();
-  // const { navigation } = props;
 
   return(
         <Form>
-
-        <p>
-          {projectId}
-        </p>
-              
-              <StyledRow direction="row"
+               <StyledRow direction="row"
                   style={{display: 'flex',justifyContent:'space-between'}}>
                      {/*item 1  */}
                       <Form.Item style={{paddingTop:"0px"}}>
-                        <p style={{fontSize:"24px",fontWeight:"bold"}}>{props.title+" - "+props.type}</p>                   
+                            {details.map((ele) => {
+                                if(ele.projectId.toString() === projectId.toString()){
+                                    return(
+                                    <p style={{fontSize:"24px",fontWeight:"bold"}}>  
+                                       {ele.project+" - "+ele.type}
+                                    </p>
+                                    );
+                                }else {
+                                  return null;
+                                }
+                              })}                                             
                       </Form.Item>
                      {/*item 2  */}
                       <Form.Item>

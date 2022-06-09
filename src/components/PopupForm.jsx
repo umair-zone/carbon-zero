@@ -6,14 +6,9 @@ const PopupForm = () => {
 
   return (
     <Form
-      labelCol={{
-        span: 6,
-      }}
-      wrapperCol={{
-        span: 16,
-      }}
-      layout="horizontal"
-      >
+      labelCol={{ span: 6,}}
+      wrapperCol={{span: 16,}}
+      layout="horizontal" >
 
       <Form.Item label="Project Name">
         <Input />
@@ -32,7 +27,6 @@ const PopupForm = () => {
       <Form.Item label="Description">
         <TextArea rows={4} />
       </Form.Item>
-
     </Form>
   );
 };

@@ -13,9 +13,7 @@ const RouteButton = (props) => {
                <>
                <StyledButton key="1" 
                onClick={props.onClick} 
-               
                style={{marginLeft:'10px' }}
-                
                 >{props.title}
                </StyledButton>           
                </>

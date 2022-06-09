@@ -10,7 +10,6 @@ const StyledForm = styled.form`
     overflow: auto;
 `;
 
-
 const details=[
   {id:1, projectId:1,title :"Report 1", type:"Cement", createdBy:"Umair", createdAt:"2022-06-01"},
   {id:2,projectId:2,title :"Report 2", type:"Highway", createdBy:"Prasan",createdAt:"2022-06-02" },

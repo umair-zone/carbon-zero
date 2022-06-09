@@ -8,20 +8,14 @@ const ProjectCard = (props) => {
 
   const navigate = useNavigate();
 
-  // const navigateToReports = (id) => {
-  //   navigate( `/projects/:${id}/reports`,{id:id} );    
-  // };
-
   return (
           <Card
           title={props.title+" - "+props.type}
           extra={
            <div direction="row">  
-              {/* `/projects/${props.projectId}/reports` */}
-              <Link to={{}}>
-              Create New Report</Link>
+              <Link to={{}}> Create New Report</Link>
               <RouteButton title="View Reports" 
-                  onClick = {()=>navigate(`/projects/${props.projectId}/reports`, {itemId: props.projectId })}/>
+                  onClick = {()=>navigate(`/projects/${props.projectId}/reports`)}/>
             </div>
           }
           style={{
