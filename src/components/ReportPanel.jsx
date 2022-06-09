@@ -4,6 +4,8 @@ import RouteButton from '../atoms/RouteButton';
 import ProjectButton from '../atoms/ProjectButton';
 import React from 'react';
 import styled from 'styled-components';
+import {useParams} from 'react-router-dom';
+
 
 function sayHello() {
    alert('You clicked New Report!');
@@ -21,13 +23,22 @@ const StyledRow = styled(Row)`
 
 
 const ReportPanel = (props) => {
-      return(
+  
+  const {projectId} = useParams();
+  // const { navigation } = props;
+
+  return(
         <Form>
+
+        <p>
+          {projectId}
+        </p>
+              
               <StyledRow direction="row"
                   style={{display: 'flex',justifyContent:'space-between'}}>
                      {/*item 1  */}
                       <Form.Item style={{paddingTop:"0px"}}>
-                        <p style={{fontSize:"24px",fontWeight:"bold"}}>{props.project+" - "+props.type}</p>                   
+                        <p style={{fontSize:"24px",fontWeight:"bold"}}>{props.title+" - "+props.type}</p>                   
                       </Form.Item>
                      {/*item 2  */}
                       <Form.Item>

@@ -4,14 +4,13 @@ import RouteButton from './RouteButton';
 import ProjectCardFooter from './ProjectCardFooter';
 import {Link, useNavigate} from 'react-router-dom';
 
-
 const ProjectCard = (props) => {
 
   const navigate = useNavigate();
 
-  const navigateToReports = (id) => {
-    navigate( `/projects/:${id}/reports `, {state:{id} });    
-  };
+  // const navigateToReports = (id) => {
+  //   navigate( `/projects/:${id}/reports`,{id:id} );    
+  // };
 
   return (
           <Card
@@ -21,7 +20,8 @@ const ProjectCard = (props) => {
               {/* `/projects/${props.projectId}/reports` */}
               <Link to={{}}>
               Create New Report</Link>
-              <RouteButton title="View Reports" onClick={()=>navigateToReports(props.projectId)}/>
+              <RouteButton title="View Reports" 
+                  onClick = {()=>navigate(`/projects/${props.projectId}/reports`, {itemId: props.projectId })}/>
             </div>
           }
           style={{
