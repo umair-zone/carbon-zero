@@ -1,22 +1,33 @@
 import { Button} from 'antd';
 import React from 'react';
+import styled from 'styled-components';
 
+const StyledButton = styled(Button)`
+     backgroundColor:#dcdcdc,
+     padding:5px,
+     alignSelf:flex-end,
+     marginLeft:10px,
+     width:150px,
+`;
 
 
 const RouteButton = (props) => {
 
      return (
                <>
-               <Button key="1" 
+               <StyledButton key="1" 
                onClick={props.onClick} 
+               
                style={{         
                 backgroundColor:'#dcdcdc',
                 padding:'5px',
                 alignSelf:'flex-end',
-                marginLeft:'20px',
+                marginLeft:'10px',
                 width:'150px',
-                }}>{props.title}
-               </Button>           
+                }}
+                
+                >{props.title}
+               </StyledButton>           
                </>
           );
 }

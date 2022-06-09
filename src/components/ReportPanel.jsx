@@ -1,8 +1,9 @@
-import {Input,Row} from 'antd';
+import {Form,Input,Row} from 'antd';
 import Item from 'antd/lib/list/Item';
 import RouteButton from '../atoms/RouteButton';
 import ProjectButton from '../atoms/ProjectButton';
 import React from 'react';
+import styled from 'styled-components';
 
 function sayHello() {
    alert('You clicked New Report!');
@@ -12,42 +13,46 @@ const { Search } = Input;
 
 const onSearch = (value) => console.log(value);
 
-const ReportPanel = () => (
-            <>
-              <Row direction="row"
-                  style={{display: 'flex',
-                     justifyContent:'space-between'}}>
+const StyledRow = styled(Row)`
+    display: flex;
+    justifyContent:space-between;
+    padding: 5px;
+`;
+
+
+const ReportPanel = (props) => {
+      return(
+        <Form>
+              <StyledRow direction="row"
+                  style={{display: 'flex',justifyContent:'space-between'}}>
                      {/*item 1  */}
-                      <Item style={{paddingTop:"20px"}}>
-                        <p style={{fontSize:"24px",fontWeight:"bold",width:"180px"}}>Project Name - </p>  
-                        <p style={{fontSize:"20px",color:"GrayText",width:"200px",marginLeft:"0px"}}>Project Type</p>  
-                      </Item>
+                      <Form.Item style={{paddingTop:"0px"}}>
+                        <p style={{fontSize:"24px",fontWeight:"bold"}}>{props.project+" - "+props.type}</p>                   
+                      </Form.Item>
                      {/*item 2  */}
-                      <Item>
+                      <Form.Item>
                       <ProjectButton 
                         title="Edit Project"
                         modaltitle="Edit a Project"
                        />  
                       <RouteButton title="New Report" onClick={sayHello}/>
-                      </Item>
-              </Row>     
+                      </Form.Item>
+              </StyledRow>     
 
 
-              <Row direction="row" style={{display: 'flex',justifyContent:'space-between'}}>
+              <StyledRow direction="row" style={{display: 'flex',justifyContent:'space-between'}}>
                      <Item>
                            <Search
                             placeholder="search"
                             onSearch={onSearch}
-                            style={{
-                                      alignItems:"flex-start"
-                               }}
+                            style={{alignItems:"flex-start"}}
                             />         
                      </Item>             
-              </Row>                          
+              </StyledRow>                          
               <br/>
-              </>
+          </Form>
           );
-
+}
 export default ReportPanel
 
 

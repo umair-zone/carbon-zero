@@ -1,6 +1,6 @@
 import React from 'react'
-import {Layout } from 'antd';
-import PojectPanel from '../components/ProjectPanel';
+import {Layout} from 'antd';
+import ProjectPanel from '../components/ProjectPanel';
 import ProjectCard from  '../atoms/ProjectCard'
 import styled from 'styled-components';
 
@@ -8,6 +8,10 @@ const StyledForm = styled.form`
     padding: 40px;
     height:  100vh;
     overflow: auto;
+`;
+
+const StyledLayout = styled(Layout)`
+    backgroundColor:white;
 `;
 
 const details=[
@@ -19,12 +23,12 @@ const details=[
 const Projects = () => {
     return (
         <StyledForm>   
-            <Layout className="layout" style={{backgroundColor:"white"}}>          
-                    <PojectPanel/>
+            <StyledLayout className="layout" style={{backgroundColor:"white"}}>          
+                    <ProjectPanel/>
                     {details.map(({id,title,type,createdBy,createdAt})=>(
-                        <ProjectCard key={id} title ={title} type={type} createdBy={createdBy} createdAt={createdAt}/>
+                        <ProjectCard key={id} projectId={id} title ={title} type={type} createdBy={createdBy} createdAt={createdAt}/>
                     ))}
-            </Layout>
+            </StyledLayout>
         </StyledForm>              
     )
 }

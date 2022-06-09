@@ -1,4 +1,5 @@
 import {Card} from 'antd';
+import {Link} from 'react-router-dom';
 import React from 'react';
 import RouteButton from './RouteButton';
 import ProjectCardFooter from './ProjectCardFooter';
@@ -14,7 +15,8 @@ const ProjectCard = (props) => {
           title={props.title+" - "+props.type}
           extra={
            <div direction="row">  
-              <a href="./reports">Create New Report</a>
+              <Link to={`/projects/${props.projectId}/reports`}  state={props}>
+              Create New Report</Link>
               <RouteButton title="View Reports" onClick={sayHello}/>
             </div>
           }
