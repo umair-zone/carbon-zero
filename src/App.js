@@ -11,7 +11,7 @@ function App() {
       <Route path="projects" element={<Projects/>}></Route>
       <Route path="projects/:projectId/reports" element={<Reports/>}></Route>
       <Route path="projects/" element={<Projects/>}></Route>
-      <Route path="reports/" element={<Reports/>}></Route>
+      <Route path="reports" element={<Reports/>}></Route>
       <Route path="reports/create" element={<Projects/>}></Route>
       {/* <Route exact path=""> 
         <Navigate to="projects" ></Navigate>
