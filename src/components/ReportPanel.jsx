@@ -18,7 +18,7 @@ const onSearch = (value) => console.log(value);
 const details=[
   {id:1, projectId:1,project:"First Project",title :"Report 1", type:"Cement", createdBy:"Umair", createdAt:"2022-06-01"},
   {id:2,projectId:2,project:"Second Project",title :"Report 2", type:"Highway", createdBy:"Prasan",createdAt:"2022-06-02" },
-  {id:3,projectId:3,project:"Third Project",title :"Report 3",type:"Other",createdBy:"Ishani",createdAt:"2022-06-03"}
+  {id:3,projectId:3,project:"Third Project",title :"Report 3",type:"Coal",createdBy:"Ishani",createdAt:"2022-06-03"}
 ]
 
 const StyledRow = styled(Row)`

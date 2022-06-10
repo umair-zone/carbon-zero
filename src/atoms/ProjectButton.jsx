@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import RouteButton from './RouteButton';
 const { TextArea } = Input;
 
-
 const ProjectButton = (props) => {
      const [isModalVisible, setIsModalVisible] = useState(false);
      const [form] = Form.useForm();
@@ -86,7 +85,7 @@ const ProjectButton = (props) => {
                     }]}
                     >
                       <Select placeholder='Location'>
-                          <Select.Option value="demo">Sri Lanka</Select.Option>
+                          <Select.Option value="Sri Lanka">Sri Lanka</Select.Option>
                       </Select>
                     </Form.Item>
                     <Form.Item 
