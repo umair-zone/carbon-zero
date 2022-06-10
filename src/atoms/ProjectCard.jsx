@@ -14,7 +14,7 @@ const ProjectCard = (props) => {
           extra={
            <div direction="row">  
               <Link to={{}}> Create New Report</Link>
-              <RouteButton title="View Reports" 
+              <RouteButton btnType="primary" title="View Reports" 
                   onClick = {()=>navigate(`/projects/${props.projectId}/reports`)}/>
             </div>
           }

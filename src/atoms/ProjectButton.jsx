@@ -22,7 +22,7 @@ const ProjectButton = (props) => {
      
      return (
                <>
-               <RouteButton title={props.title} onClick={showModal} />
+               <RouteButton btnType ={props.btnType} title={props.title} onClick={showModal} />
                <Modal 
                 title={props.modaltitle} 
                 visible={isModalVisible} 

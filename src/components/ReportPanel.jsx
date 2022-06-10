@@ -1,19 +1,13 @@
-import {Form,Input,Row} from 'antd';
-import Item from 'antd/lib/list/Item';
+import {Form,Row} from 'antd';
 import RouteButton from '../atoms/RouteButton';
 import ProjectButton from '../atoms/ProjectButton';
 import React from 'react';
 import styled from 'styled-components';
 import {useParams} from 'react-router-dom';
 
-
 function sayHello() {
    alert('You clicked New Report!');
  }
-
-const { Search } = Input;
-
-const onSearch = (value) => console.log(value);
 
 const details=[
   {id:1, projectId:1,project:"First Project",title :"Report 1", type:"Cement", createdBy:"Umair", createdAt:"2022-06-01"},
@@ -56,21 +50,9 @@ const ReportPanel = () => {
                         modaltitle="Edit a Project"
                         btnstate="Update"
                        />  
-                      <RouteButton title="New Report" onClick={sayHello}/>
+                      <RouteButton btnType="primary" title="New Report" onClick={sayHello}/>
                       </Form.Item>
               </StyledRow>     
-
-
-              <StyledRow direction="row" style={{display: 'flex',justifyContent:'space-between'}}>
-                     <Item>
-                           <Search
-                            placeholder="search"
-                            onSearch={onSearch}
-                            style={{alignItems:"flex-start"}}
-                            />         
-                     </Item>             
-              </StyledRow>                          
-              <br/>
           </Form>
           );
 }
