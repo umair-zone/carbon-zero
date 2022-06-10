@@ -6,7 +6,8 @@ const { TextArea } = Input;
 
 const ProjectButton = (props) => {
      const [isModalVisible, setIsModalVisible] = useState(false);
-
+     const [form] = Form.useForm();
+     
      const showModal = () => {
        setIsModalVisible(true);
      };
@@ -16,7 +17,8 @@ const ProjectButton = (props) => {
      };
    
      const handleCancel = () => {
-       setIsModalVisible(false);
+        form.resetFields();
+        setIsModalVisible(false);
      };
      
      return (
@@ -30,12 +32,14 @@ const ProjectButton = (props) => {
                 footer={[ ]}>
       
               <Form
+                    form={form}
                     labelCol={{ span: 6,}}
                     wrapperCol={{span: 18,}}
                     layout="horizontal" 
                     autoComplete='off'
                     onFinish={(values) => {
                       console.log(values);
+                      form.resetFields();
                       handleOk();
                     }}
                     
