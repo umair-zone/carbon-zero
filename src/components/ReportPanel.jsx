@@ -54,6 +54,7 @@ const ReportPanel = () => {
                       <ProjectButton 
                         title="Edit Project"
                         modaltitle="Edit a Project"
+                        btnstate="Update"
                        />  
                       <RouteButton title="New Report" onClick={sayHello}/>
                       </Form.Item>

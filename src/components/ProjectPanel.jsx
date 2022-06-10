@@ -40,6 +40,7 @@ const ProjectPanel = () => {
                             <StyledProjectButton 
                             title="Create Project +"
                             modaltitle="Create a Project"
+                            btnstate="Submit"
                             />   
                       </Form.Item>
                    </StyledRow>              

@@ -13,7 +13,7 @@ const StyledForm = styled.form`
 const details=[
   {id:1, projectId:1,title :"Report 1", type:"Cement", createdBy:"Umair", createdAt:"2022-06-01"},
   {id:2,projectId:2,title :"Report 2", type:"Highway", createdBy:"Prasan",createdAt:"2022-06-02" },
-  {id:3,projectId:3,title :"Report 3",type:"Other",createdBy:"Ishani",createdAt:"2022-06-03"}
+  {id:3,projectId:3,title :"Report 3",type:"Coal",createdBy:"Ishani",createdAt:"2022-06-03"}
 ]
 
 const Reports = (props) => {

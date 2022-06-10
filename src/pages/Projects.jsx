@@ -17,7 +17,7 @@ const StyledLayout = styled(Layout)`
 const details=[
   {id:1,title :"First Project", type:"Cement", createdBy:"Umair", createdAt:"2022-06-01"},
   {id:2,title :"Second Project", type:"Highway", createdBy:"Prasan",createdAt:"2022-06-02" },
-  {id:3,title :"Third Project",type:"Other",createdBy:"Ishani",createdAt:"2022-06-03"}
+  {id:3,title :"Third Project",type:"Coal",createdBy:"Ishani",createdAt:"2022-06-03"}
 ]
 
 const Projects = () => {
