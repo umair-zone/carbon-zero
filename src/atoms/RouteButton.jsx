@@ -3,11 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledButton = styled(Button)`
-     backgroundColor:#dcdcdc,
-     padding:5px,
-     alignSelf:flex-end,
      marginLeft:10px,
-     width:150px,
 `;
 
 
@@ -17,15 +13,8 @@ const RouteButton = (props) => {
                <>
                <StyledButton key="1" 
                onClick={props.onClick} 
-               
-               style={{         
-                backgroundColor:'#dcdcdc',
-                padding:'5px',
-                alignSelf:'flex-end',
-                marginLeft:'10px',
-                width:'150px',
-                }}
-                
+               type={props.btnType}
+               style={{marginLeft:'10px' }}
                 >{props.title}
                </StyledButton>           
                </>
