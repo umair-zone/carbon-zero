@@ -6,6 +6,7 @@ const NavbarWrapper = styled.div`
 padding: 10px;
 font-size: 1.5rem;
 box-shadow: 0px 2px 11px rgba(0, 0, 0, 0.25);
+background-color:#fff;
 
 `;
 
@@ -23,7 +24,7 @@ const Navbar = () => {
     return (
        <NavbarWrapper>
            <AppName> Carbon <Bold > Zero </Bold></AppName>
-            
+
        
        
        </NavbarWrapper>

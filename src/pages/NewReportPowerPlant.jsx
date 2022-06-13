@@ -24,20 +24,17 @@ const ParameterSection = styled.section`
 
 const projectData = {
     "projectId": 1,
-    "projectName": "XYZ Cement Copration",
-    "projectType": "Cement Manufacturer",
+    "projectName": "XYZ Power Copration",
+    "projectType": "Power Plant",
     "projectDescription": "This is some project discription"
 }
 
 
-const NewReportCement = () => {
+const NewReportPowerPlant = () => {
 
-    const [energySources, setEnergySources] = useState([
-        {
-            "energySource": "coal",
-            "energyAmount": 1000
-        }
-    ])
+    const [energySources, setEnergySources] = useState([])
+
+    const [coalUsed, setCoalUsed] = useState([])
 
 
     const columns = [
@@ -55,6 +52,26 @@ const NewReportCement = () => {
         }
 
     ]
+
+    const coalUsedColumns = [
+        {
+            "title":"Type of Coal",
+            "dataIndex": "typeOfCoal",
+            "key":"typeOfCoal"
+        }
+        ,
+        {
+            "title":"Amount of Coal",
+            "dataIndex": "amountOfCoal",
+            "key":"amountOfCoal"
+        }
+    ]
+
+    const addCoalUsed = (value) => {
+        setCoalUsed(
+            [...coalUsed , value]
+        )
+    }
     
 
     const addEnergySource = (value)=> {   
@@ -95,11 +112,30 @@ const NewReportCement = () => {
             </ParameterSection>
             <ParameterSection>
                 <Title level={3}> Manufacturing</Title>
-                <Form>
-                    <Form.Item label="Cement Manufactured Per Month" name="manufacturePerMonth">
-                        <InputNumber addonAfter="kg" min={1}></InputNumber>
-                    </Form.Item>
+                <Form layout='inline' onFinish={addCoalUsed}>
+                    <Col span={6}>
+                        <Form.Item label="Type of Coal Used" name="typeOfCoal">
+                            <SelectStyled>
+                                {["Type 1" , "Type 2"].map(
+                                    (type, index)=>  <Option key={index} value={type}>{type}</Option>
+                                )}
+                            </SelectStyled>
+                        </Form.Item>
+                    </Col>
+                    <Col span={6}>
+                        <Form.Item label="Amount of Coal" name="amountOfCoal">
+                            <InputNumber addonAfter="kg" min={1}></InputNumber>
+                        </Form.Item>
+                    </Col>
+                    <Col span={4}>
+                        <Form.Item>
+                            <Button block htmlType='submit'> Add</Button>
+                        </Form.Item>
+                    </Col>
                 </Form>
+                <div style={{ margin:"50px 30px" , boxShadow:"0px 2px 11px rgba(0, 0, 0,0.1)"}}>
+                    <Table dataSource={coalUsed} columns={coalUsedColumns} pagination={false}></Table>
+                </div>
             </ParameterSection>
             <ParameterSection>
                 <Title level={3}>CO2 capturing</Title>
@@ -113,4 +149,4 @@ const NewReportCement = () => {
     )
 }
 
-export default NewReportCement
+export default NewReportPowerPlant
