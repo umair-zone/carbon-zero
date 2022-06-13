@@ -212,8 +212,7 @@ const EmissionReport = () => {
             </Row>
                     <SaveReport 
                         visible={true}
-                        onCreate={(values)=> alert(JSON.stringify(values))}
-                    
+                        onCreate={(values)=> alert(JSON.stringify(values))}           
                     ></SaveReport>
         </PageWrapper>
     )
