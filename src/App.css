@@ -1,4 +1,4 @@
-
+@import '~antd/dist/antd.min.css';
 
 body{
     background-color: rgb(255, 255, 255) !important;
@@ -8,4 +8,10 @@ body{
 .c_carousel_class{
     color: blue;
 
+}
+
+
+
+.App{
+     flex: content;     
 }
