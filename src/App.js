@@ -1,22 +1,28 @@
 import { Route, Routes} from 'react-router-dom';
 //import { Route, Routes , Navigate } from 'react-router-dom';
 import './App.css';
+import 'antd/dist/antd.min.css'; 
+import NewReportPowerPlant from './pages/NewReportPowerPlant';
 import Projects from './pages/Projects';
+import Navbar from './components/Navbar';
+import EmissionReport from './pages/EmissionReport';
 import Reports from './pages/Reports';
 
 
 function App() {
   return (
-    <Routes >
-      <Route path="projects" element={<Projects/>}></Route>
-      <Route path="projects/:projectId/reports" element={<Reports/>}></Route>
-      <Route path="projects/" element={<Projects/>}></Route>
-      <Route path="reports" element={<Reports/>}></Route>
-      <Route path="reports/create" element={<Projects/>}></Route>
-      {/* <Route exact path=""> 
-        <Navigate to="projects" ></Navigate>
-      </Route>   */}
-    </Routes>
+    <>
+      <Navbar></Navbar>
+      <Routes >
+        <Route path="projects" element={<Projects/>}></Route>
+        <Route path="projects/:projectId/reports" element={<Reports/>}></Route>
+        <Route path="projects/:projectId/reports/:reportId" element={<EmissionReport></EmissionReport>}></Route>
+        <Route path="projects/:projectId/reports/create" element={<NewReportPowerPlant/>}></Route>
+        {/* <Route exact path=""> 
+          <Navigate to="projects"></Navigate>
+        </Route>  */}
+      </Routes>
+    </>
    
   );
 }
