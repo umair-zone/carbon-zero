@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React /*, { useState } */ from 'react';
 import {Layout,Form,Input,Row} from 'antd';
 import ProjectCard from  '../atoms/ProjectCard'
 import ProjectButton from '../atoms/ProjectButton';
 import styled from 'styled-components';
+//import {SERVER_URL} from "../Config";
+import axios from 'axios';
 
 const { Search } = Input;
 
@@ -30,20 +32,42 @@ const StyledLayout = styled(Layout)`
     backgroundColor:white;
 `;
 
+class Projects extends React.Component {
 
-const onSearch = (value) => console.log(value);
+    constructor(props){
+      super(props)
+        this.state = {
+          projects: []
+        }
+    }
 
 
-const details=[
-  {id:1,title :"First Project", type:"Cement", createdBy:"Umair", createdAt:"2022-06-01"},
-  {id:2,title :"Second Project", type:"Highway", createdBy:"Prasan",createdAt:"2022-06-02" },
-  {id:3,title :"Third Project",type:"Coal",createdBy:"Ishani",createdAt:"2022-06-03"}
-]
+    handleAPI = async(e)=>{
+      axios.get(`http://127.0.0.1:8000/projects`)
+      .then(res => {
+        let convertToLc = e.target.value.toLowerCase()
+        const filterData = res.data.filter((e) => {
+        const nameToLc = e.projectName.toLowerCase()
+          return nameToLc.indexOf(convertToLc) !== -1
+        })
 
-const Projects = () => {
+        this.setState({ projects : filterData });
+      }).catch((err)=>{
+         alert(err)
+      })
+    }
 
-    const [dataSource, setDataSource] = useState(details);
-    const [value, setValue] = useState('');
+    componentDidMount() {
+      axios.get(`http://127.0.0.1:8000/projects`)
+        .then(res => {
+          const projects = res.data;
+          this.setState({ projects });
+        }).catch((err)=>{
+           alert(err)
+        })
+    }
+
+    render() {
 
     return (
         <StyledForm>   
@@ -56,16 +80,7 @@ const Projects = () => {
                       >
                           <StyledSearch
                                 placeholder="search"
-                                onSearch={onSearch}
-                                value={value}
-                                onChange={e => {
-                                  const currValue = e.target.value;
-                                  setValue(currValue);
-                                  const filteredData = details.filter(entry =>
-                                    entry.title.includes(currValue)
-                                  );
-                                  setDataSource(filteredData);
-                                }}
+                                onChange={this.handleAPI}
                           />
                       </Form.Item>
                       <Form.Item>
@@ -76,16 +91,19 @@ const Projects = () => {
                             btnstate="Submit"
                             />   
                       </Form.Item>
+                      
                    </StyledRow>              
                   <br/>
                 </Form>
 
-                {dataSource.map(({id,title,type,createdBy,createdAt})=>(
-                <ProjectCard key={id} projectId={id} title ={title} type={type} createdBy={createdBy} createdAt={createdAt}/>
+                {this.state.projects.map(({id,projectName,projectTypeId,projectCreatedby,projectDescription,createdAt})=>(
+                <ProjectCard key={id} projectId={id} title ={projectName} type={projectTypeId} projectDescription={projectDescription} createdBy={projectCreatedby} createdAt={createdAt}/>
                 ))}
+
 
             </StyledLayout>
         </StyledForm>              
     )
+  }
 }
 export default Projects

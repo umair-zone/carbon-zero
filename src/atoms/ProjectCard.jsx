@@ -23,6 +23,7 @@ const ProjectCard = (props) => {
             marginTop: 10
           }}
           >
+            <p> {props.projectDescription} </p>
           <ProjectCardFooter createdAt ={props.createdAt} createdBy={props.createdBy}/>
         </Card>
       )
