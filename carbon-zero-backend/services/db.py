@@ -26,7 +26,7 @@ class DBService:
         project_type_container.upsert_item({"id": "3", "name": "Power Plant"})
 
         
-        tree_container.create_item({"id": get_id() , "name":"" ,"scientificName":"" ,"absorbtionRate": 2 , "area": 2 })
+        tree_container.create_item({"id": get_id() , "name": "Yellow Flame" ,"scientificName": "Peltophorum pterocarpum" , "favourableSoilType": "Sandy Loamy" , "agetoMaturity":5 , "absorbtionRate": 0.04 ,  "absorbtionRatein10Years":0.402 , "absorbtionRatein15Years":0.603 ,"absorbtionRatein20Years":0.804 , "areaRequirment": 12 ,"advantages":"planted as a shade tree,have a dense spreading crown, fast-growing"})
         tree_container.create_item({"id": get_id() , "name":"" ,"scientificName":"" ,"absorbtionRate": 4 , "area": 4 })
         tree_container.create_item({"id": get_id() , "name":"" ,"scientificName":"" ,"absorbtionRate": 5 , "area": 1 })
 
