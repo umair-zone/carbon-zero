@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState  } from 'react'
 import {Typography , Select  , Form, InputNumber, Button, Table, Row, Col, Space, Divider,} from 'antd'
 import styled from 'styled-components'
 import ProjectHeader from '../components/ProjectHeader'
@@ -6,6 +6,8 @@ import NewReport from './NewReport'
 
 const {Title} = Typography
 const {Option} = Select
+
+const {useForm} = Form
 
 const PageWrapper = styled.div`
     margin: 20px;
@@ -30,12 +32,16 @@ const projectData = {
 }
 
 
-const NewReportCement = () => {
+const NewReportCement = (props) => {
 
+    const [manufactureAmount , setManufactureAmount] = useState(1)
+    const [CO2Capture , setCO2Capture] = useState(0)
+    
     const [energySources, setEnergySources] = useState([
         {
             "energySource": "coal",
-            "energyAmount": 1000
+            "energyAmount": 1000,
+            "key":1
         }
     ])
 
@@ -65,8 +71,11 @@ const NewReportCement = () => {
         }
     }
 
+
     return (
-        <NewReport projectData={projectData}>
+        <NewReport projectData={{...projectData , "energySources": energySources , 
+        "CO2Capture":CO2Capture , "manufactureAmount":manufactureAmount }} 
+        >
             <ParameterSection>
                 <Title level={3}> Operational Energy Consumption per Month</Title>
                     <Form  layout='inline' onFinish={addEnergySource} >
@@ -90,14 +99,14 @@ const NewReportCement = () => {
                         </Col>
                     </Form>
                 <div style={{ margin:"50px 30px" , boxShadow:"0px 2px 11px rgba(0, 0, 0,0.1)"}}>
-                    <Table dataSource={energySources} columns={columns} pagination={false}></Table>
+                    <Table rowKey="energySource" dataSource={energySources} columns={columns} pagination={false}></Table>
                 </div>
             </ParameterSection>
             <ParameterSection>
                 <Title level={3}> Manufacturing</Title>
-                <Form>
+                <Form >
                     <Form.Item label="Cement Manufactured Per Month" name="manufacturePerMonth">
-                        <InputNumber addonAfter="kg" min={1}></InputNumber>
+                        <InputNumber value={manufactureAmount} onChange={v => setManufactureAmount(v)} addonAfter="kg" min={1}></InputNumber>
                     </Form.Item>
                 </Form>
             </ParameterSection>
@@ -105,7 +114,7 @@ const NewReportCement = () => {
                 <Title level={3}>CO2 capturing</Title>
                 <Form>
                     <Form.Item label="CO2 Captured Per Month" name="manufacturePerMonth">
-                        <InputNumber addonAfter="kg" min={0}></InputNumber>
+                        <InputNumber value={CO2Capture} onChange={v=>setCO2Capture(v)} addonAfter="kg" min={0}></InputNumber>
                     </Form.Item>
                 </Form>
             </ParameterSection>

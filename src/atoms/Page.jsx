@@ -1,7 +1,10 @@
 import styled from "styled-components"
 
-export default {
+const page =  {
 
     "PageWrapper" :  styled.div`margin: 25px;padding: 25px;background-color: #fff`
 
 } 
+
+
+export default page
