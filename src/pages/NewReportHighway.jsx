@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import {Typography , Select  , Form, InputNumber, Button, Table, Row, Col, Space, Divider,} from 'antd'
+import {Typography , Select  , Form, InputNumber, Button, Table,  Col,} from 'antd'
 import styled from 'styled-components'
 import NewReport from './NewReport'
 import { useForm } from 'antd/lib/form/Form'
@@ -7,10 +7,6 @@ import { useForm } from 'antd/lib/form/Form'
 const {Title} = Typography
 
 
-const PageWrapper = styled.div`
-    margin: 20px;
-    padding: 15px;
-`
 
 const SelectStyled = styled(Select)`
     width: 200px;
