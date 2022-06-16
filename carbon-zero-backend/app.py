@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from src import test
 from routers import projects
 from routers import reports
+from routers import trees
 from fastapi.middleware.cors import CORSMiddleware
 
 
@@ -23,6 +24,7 @@ app.add_middleware(
 
 app.include_router(projects.router , prefix="/projects")
 app.include_router(reports.router , prefix="/reports")
+app.include_router(trees.router, prefix="/trees")
 
 @app.get("/test")
 def read_root():

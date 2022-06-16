@@ -24,6 +24,9 @@ class CementParameter(BaseModel):
     energySources: Iterable[EnerySource]
     manufactureAmount: float
     CO2Capture: float
+    maxTreesByUser: object
+    minTreesByUser: object
+    soilTypes: Iterable[str]
 
 
 class PowerPlantParameter(BaseModel):
@@ -111,6 +114,7 @@ data = {
 def create_report_cement(report: CementParameter):
     params = report.dict()
     params["energySources"] = [s for s in report.energySources]
+    params["soilTypes"] = [s for s in report.soilTypes]
     data = dbs.create_report(name=f"Report - {report.projectName}",
                              projectId=report.projectId, params=params)
     return data

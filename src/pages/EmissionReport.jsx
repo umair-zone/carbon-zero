@@ -126,9 +126,11 @@ const EmissionReport = () => {
                     {
                         chart: {id: 'emission timeline'},
                         xaxis: {
-                            categories: response.data.timeline.map(v => v.month) , 
-                            title:"Month Number" },
+                            categories: response.data.timeline.map(v => v.month ) , 
+                            title: { text: "Month Number"} 
+                        },
                         yaxis: {
+                            min:0,
                             title : {text: "Net Emission (CO2) in kg"},
                             labels: {
                                 formatter: (v) => v.toFixed(2)

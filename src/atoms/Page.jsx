@@ -6,8 +6,7 @@ import { Spin } from 'antd'
 const PW = styled.div`
     margin: 100px;
     padding: 40px;
-    background-color: #1c1c1c;
-    color: #fff;
+    background-color: rgba(255, 255, 255, 0.6);
    `
 
 const PageWrapper = (props) => {

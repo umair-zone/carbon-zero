@@ -54,11 +54,9 @@ def create_projects(projectId:str):
 
 
 @router.get("/{projectId}/reports")
-def list_project(projectId:int):
-    data = dbs.get_reports(projectId)
-    
-    report = [p for p in reports if p['id'] == projectId ]          
-    return report[0]  if len(report) > 0 else {}
+def list_project(projectId:str):
+    data = dbs.get_reports(projectId)       
+    return data
 
 
 

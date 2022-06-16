@@ -38,21 +38,22 @@ def co2_estimator(project_type_id:int , params):
 
     return total_co2_emitted  * 12
 
-def read_tree_data():
+def read_tree_data(soil_types=[]):
     data = []
     for t in dbs.get_trees():
-        print(t)
-        data.append({
-            "id": t["id"],
-            "absorbtionRate": t["absorbtionRate"] * 1000, #converting to kgs
-            "area": t["areaRequirement"] 
-        })
+        if t["favourableSoilType"] in soil_types:
+            data.append({
+                "id": t["id"],
+                "absorbtionRate": t["absorbtionRate"] * 1000, #converting to kgs
+                "area": t["areaRequirement"] 
+            })
 
     return data
 
 
-def forest_estimator(amount_of_co2:Decimal , minimum_by_user={}, maximum_by_user={}):
-    tree_data = read_tree_data()
+def forest_estimator(amount_of_co2:Decimal , minimum_by_user={}, maximum_by_user={} , soil_types=None):
+
+    tree_data = read_tree_data(soil_types)
     trees = [t["id"] for t in tree_data]
     absorbtion_rate = {}
     area = {}
@@ -84,7 +85,7 @@ def get_absorbion_rate_at_month(grown_absorbtion, maturity_in_months , month):
 
 
 
-def get_report(project_id , params , minimum_by_user={} , maximum_by_user={}):
+def get_report(project_id , params ):
     data = {}
     projects = dbs.get_project(project_id)
     if len(projects) == 0 :
@@ -94,7 +95,8 @@ def get_report(project_id , params , minimum_by_user={} , maximum_by_user={}):
     data = data | {"projectName" : projects[0]["projectName"] , "projectType": "Cement Manufacture" }
     
     co2_emission = co2_estimator(project_type_id, params)
-    trees = forest_estimator(co2_emission , minimum_by_user , maximum_by_user)
+    
+    trees = forest_estimator(co2_emission , params["minTreesByUser"] , params["maxTreesByUser"], params["soilTypes"])
  
     data["emissionEstimation"] = co2_emission - params["CO2Capture"] 
     data["numberOfTrees"] = sum( [t["number_of_trees"] for t in trees])
@@ -134,8 +136,8 @@ def get_report(project_id , params , minimum_by_user={} , maximum_by_user={}):
     data["forestEstimation"] = [forest_1,]
     data["timeline"] = timeline
 
-    data["energyBreakdown"]= [ {"source": e["energySource"] , "amount":e["energyAmount"]}  for e in params["energySources"]]
-    data["energyRequirement"] = sum([ e["energyAmount"]   for e in params["energySources"]])
+    data["energyBreakdown"]= [ {"source": e["energySource"] , "amount":e["energyAmount"] * 12}  for e in params["energySources"]]
+    data["energyRequirement"] = sum([ e["energyAmount"]   for e in params["energySources"]]) * 12
     'numberOfTrees'
     data["emissionBreakdown"]= [ 
         {"amountOfEmission": co2_emission ,

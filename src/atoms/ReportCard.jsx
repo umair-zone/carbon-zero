@@ -11,7 +11,7 @@ function sayHello() {
 const ReportCard = (props) => {
     return (
           <Card
-          title={props.title+" - "+props.createdAt}
+          title={props.title}
           extra={
            <div direction="row">  
                <RouteButton title="View" onClick={sayHello}/>

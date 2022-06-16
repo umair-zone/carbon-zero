@@ -13,6 +13,37 @@ class DBService:
 
     DB = "carbon_zero"
 
+    def load_dummy_data(self):
+        self.project_container.create_item(
+            {
+                "id": get_id(),
+                "projectName": "Stronger Cement (pvt) Ltd",
+                "projectTypeId": 1,
+                "projectDescription": "Stronger Cement (pvt) Ltd is planning start their new plant at Kandy, Sri Lanka.",
+                "projectLocation": "Sri Lanka"
+            }
+        )
+
+        self.project_container.create_item(
+            {
+                "id": get_id(),
+                "projectName": "Sourthern Highway - Area 23",
+                "projectTypeId": 2,
+                "projectDescription": "Estmation project for Southern Highway passing the area 23. Which is a highly forest covered area",
+                "projectLocation": "Sri Lanka"
+            }
+        )
+
+        self.project_container.create_item(
+            {
+                "id": get_id(),
+                "projectName": "Noraichcholai Coal Power Plant",
+                "projectTypeId": 3,
+                "projectDescription": "New Norachcholai coal power plant is going to built in noraichcholai-Puttalam",
+                "projectLocation": "Sri Lanka"
+            }
+        )
+
     def setup(client:CosmosClient):
         client.delete_database(DBService.DB)
         db = client.create_database_if_not_exists(DBService.DB)
@@ -106,11 +137,11 @@ class DBService:
     def get_reports(self, projectId):
         data = self.report_container.query_items(
             query= f''' 
-            SELECT r.id , r.name , r.projectId , r.params
-            FROM Reports r where projectId='{projectId}' ''',
+            SELECT r.id , r.name , r.params.projectName 
+            FROM Report r 
+            WHERE r.projectId = '{projectId}'  ''',
             enable_cross_partition_query=True
         )
-
         return [d for d in data ]
 
 
@@ -143,7 +174,10 @@ class DBService:
 
     def create_report(self , name , projectId ,params , ):
         return self.report_container.create_item({"id": get_id(),
-        "name": name, 'projectId': projectId,"params": params})
+        "name": name, 'projectId': projectId,"params": params , 
+        "createdAt": datetime.now().strftime("%m/%d/%Y, %H:%M:%S"),
+        "createdBy": "Jhon .A"
+        })
     
 
     def get_report(self, reportId:str):

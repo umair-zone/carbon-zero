@@ -3,7 +3,7 @@ import {Layout,Form,Input,Row} from 'antd';
 import ProjectCard from  '../atoms/ProjectCard'
 import ProjectButton from '../atoms/ProjectButton';
 import styled from 'styled-components';
-//import {SERVER_URL} from "../Config";
+import {HOST} from "../services/api/config";
 import page from '../atoms/Page'
 import axios from 'axios';
 
@@ -49,7 +49,7 @@ class Projects extends React.Component {
 
 
     handleAPI = async(e)=>{
-      axios.get(`http://127.0.0.1:8000/projects`)
+      axios.get(`${HOST}/projects`)
       .then(res => {
         let convertToLc = e.target.value.toLowerCase()
         const filterData = res.data.filter((e) => {
@@ -64,7 +64,7 @@ class Projects extends React.Component {
     }
 
     componentDidMount() {
-      axios.get(`http://127.0.0.1:8000/projects`)
+      axios.get(`${HOST}/projects`)
         .then(res => {
           const projects = res.data;
           this.setState({ projects });
@@ -76,9 +76,7 @@ class Projects extends React.Component {
     render() {
 
     return (
-      // <PageWrapper loading={false}>
         <StyledForm>   
-            {/* <StyledLayout className="layout" style={{backgroundColor:"white"}}>           */}
                 <Form>
                    <StyledRow direction="row" style={{justifyContent:'space-between'}}>
                      <Form.Item
@@ -108,11 +106,8 @@ class Projects extends React.Component {
                 {this.state.projects.map(({id,projectName,projectTypeId,projectCreatedby,projectDescription,createdAt})=>(
                 <ProjectCard key={id} projectId={id} title ={projectName} type={projectTypeId} projectDescription={projectDescription} createdBy={projectCreatedby} createdAt={createdAt}/>
                 ))}
-
-
-            {/* </StyledLayout> */}
         </StyledForm>
-      // </PageWrapper>              
+         
     )
   }
 }

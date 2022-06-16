@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 //import { withRouter } from "react-router-dom";
 import {useParams} from 'react-router-dom';
+import { HOST } from '../services/api/config';
 
 
 const { Search } = Input;
@@ -41,10 +42,10 @@ class Reports extends React.Component {
         projectCreatedby:"",
         createdAt:" ",
         reports: [
-          {id:1, projectId:1,title :"Report 1", type:"Cement", createdBy:"Umair", createdAt:"2022-06-01"},
-          {id:2,projectId:2,title :"Report 2", type:"Highway", createdBy:"Prasan",createdAt:"2022-06-02" },
-          {id:3,projectId:3,title :"Report 3",type:"Coal",createdBy:"Ishani",createdAt:"2022-06-03"},
-          {id:3,projectId:3,title :"ABC",type:"Coal",createdBy:"Ishani",createdAt:"2022-06-03"}
+          // {id:1, projectId:1,title :"Report 1", type:"Cement", createdBy:"Umair", createdAt:"2022-06-01"},
+          // {id:2,projectId:2,title :"Report 2", type:"Highway", createdBy:"Prasan",createdAt:"2022-06-02" },
+          // {id:3,projectId:3,title :"Report 3",type:"Coal",createdBy:"Ishani",createdAt:"2022-06-03"},
+          // {id:3,projectId:3,title :"ABC",type:"Coal",createdBy:"Ishani",createdAt:"2022-06-03"}
         ]
       }
   }
@@ -60,7 +61,7 @@ class Reports extends React.Component {
 
 
   componentDidMount() {
-    axios.get(`http://127.0.0.1:8000/projects/${this.props.param.projectId}`)
+    axios.get(`${HOST}/projects/${this.props.param.projectId}`)
       .then(res => {
         const projects = res.data;
         this.setState({ 
@@ -73,12 +74,17 @@ class Reports extends React.Component {
           projectCreatedby:projects["projectCreatedby"],
           createdAt:projects["createdAt"],
         });
-        console.log(projects["projectName"])
       }).catch((err)=>{
          alert(err)
       })
  
-      axios.get(``)
+      const fetchReports = async () => {
+        const reponse = await axios.get(`${HOST}/projects/${this.props.param.projectId}/reports`)   
+        const reports = reponse.data.map( v => ({...v, "title":v["name"] , "createdBy":"Jhon"}))
+        this.setState({...this.state , "reports":reports})
+      }
+      
+      fetchReports()
  
     }
   
@@ -102,8 +108,8 @@ class Reports extends React.Component {
               </StyledRow>                          
               <br/>
 
-              {this.state.reports.map(({id,title,type,createdBy,createdAt})=>(
-                <ReportCard key={id} projectId={id} type={type} title ={title} createdBy={createdBy} createdAt={createdAt}/>
+              {this.state.reports.map(({id,title, projectId ,type,createdBy,createdAt})=>(
+                <ReportCard key={id} projectId={projectId} type={type} title ={title} createdBy={createdBy} createdAt={createdAt}/>
               ))}   
               
         {/* </Layout> */}

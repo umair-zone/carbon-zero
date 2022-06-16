@@ -9,6 +9,20 @@ body{
 
 }
 
+.ant-card {
+    /* background-color: #1c1c1c !important ; */
+    /* color: #fff !important; */
+}
+
+.ant-card-head{
+    /* color: #fff !important; */
+}
+
+.ant-btn-primary {
+    /* background: linear-gradient(45deg, #891dfd, #aa0361) !important ; */
+    background-color: #891dfd !important ;
+    border-color: #891dfd !important;
+}
 
 .c_carousel_class{
     color: blue;
