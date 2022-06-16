@@ -19,9 +19,7 @@ def co2_from_powerplant():
 
 
 
-def co2_estimator(project_type_id:int , params):
-    print(params)
-    
+def co2_estimator(project_type_id:int , params):  
     total_co2_emitted = 0
     
     if project_type_id == 1:
@@ -38,7 +36,7 @@ def co2_estimator(project_type_id:int , params):
     if project_type_id == 3:
         total_co2_emitted += co2_from_cement()
 
-    return total_co2_emitted
+    return total_co2_emitted  
 
 def read_tree_data():
     data = []
@@ -88,7 +86,7 @@ def get_absorbion_rate_at_month(grown_absorbtion, maturity_in_months , month):
 
 def get_report(project_id , params , minimum_by_user={} , maximum_by_user={}):
     data = {}
-    projects = dbs.get_project("aedfb6db2d384a2bb0f6d79bc5ac0d50")
+    projects = dbs.get_project(project_id)
     if len(projects) == 0 :
         return 
     project_type_id = projects[0]["projectTypeId"]
@@ -102,22 +100,55 @@ def get_report(project_id , params , minimum_by_user={} , maximum_by_user={}):
     
 
     data["emissionEstimation"] = co2_emission
-    data["forestEstimation"] = [t for t in trees]
-    data["numOfTrees"] = sum( [t["number_of_trees"] for t in trees])
+    
+    data["numberOfTrees"] = sum( [t["number_of_trees"] for t in trees])
     
     timeline = []
+
+    forest_1 = []
+
+    trees2 = [ dbs.get_tree(t["tree_id"]) | {"number_of_trees" : t["number_of_trees"]}   for t in trees  if t["number_of_trees"] > 0]
     
-    for m in range(8*12):
+    ##preret the list of trees
+    for tree in trees2:
+        forest_1.append({
+            "id": tree["id"],
+            "treeType": tree["name"]  , 
+            "soilType" : tree["favourableSoilType"] , 
+            "noOfTrees": tree["number_of_trees"],
+            "coverageArea": tree["number_of_trees"] * tree["areaRequirement"],
+            "timeToGrow": tree["agetoMaturity"],
+            "advantages": tree["advantages"]
+        })    
+
+    
+    #prepare the data for emmsion
+    
+    max_time = max([ tree["agetoMaturity"] for tree in trees2]) * 12 + 6
+   
+    for m in range(max_time):
         total_absorbtion = 0
-        for t in trees:
-            tree = dbs.get_tree(t["id"])
+        for tree in trees2:
             grown_absrobtion = tree["absorbtionRate"] * 1000
             maturity_in_months = tree["agetoMaturity"] * 12
             total_absorbtion += get_absorbion_rate_at_month(grown_absrobtion , maturity_in_months, m)
         
-        timeline.append({"netEmission": co2_emission - total_absorbtion,"month": m})
+        timeline.append({"netEmission": f'{(co2_emission - total_absorbtion):g}',"month": m})
     
-    data["timeline"] = timeline   
+    data["forestEstimation"] = [forest_1,]
+    data["timeline"] = timeline
+
+    data["energyBreakdown"]= [ {"source": e["energySource"] , "amount":e["energyAmount"]}  for e in params["energySources"]]
+    data["energyRequirement"] = sum([ e["energyAmount"]   for e in params["energySources"]])
+    'numberOfTrees'
+    data["emissionBreakdown"]= [ 
+        {"amountOfEmission": co2_emission ,
+        "causeOfEmission": "Operations and Manufacturing",
+        "suggestions": "Use enery efficient mechinaries , use alternative methods to reduce CO2 emission"}
+    ]
+ 
+    
+    print(params)
 
     return data
 

@@ -1,7 +1,7 @@
 from azure.cosmos import CosmosClient , DatabaseProxy, PartitionKey , ContainerProxy
 import uuid
 import csv
-
+from datetime import datetime, date
 
 get_id = lambda : uuid.uuid4().hex.lower()
 
@@ -67,13 +67,16 @@ class DBService:
         self.emission_container = self.db.get_container_client("Emission")
     
     
-    def create_project(self, projectName:str, projectTypeId:str , projectDescription:str=None ):
+    def create_project(self, projectName:str, projectTypeId:str ,projectLocation:str,projectCreatedby:str, projectDescription:str=None ):
         return self.project_container.create_item(
             { 
             "id": get_id() ,
             "projectName": projectName , 
             "projectTypeId": projectTypeId,
-            "projectDescription": projectDescription
+            "projectDescription": projectDescription,
+            "projectCreatedby":projectCreatedby,
+            "projectLocation":projectLocation,
+            "createdAt":datetime.now().strftime("%d/%m/%Y %H:%M:%S")
             }
         )
 
@@ -110,6 +113,10 @@ class DBService:
             FROM Tree t
             ''' , 
             enable_cross_partition_query=True)
+        return [ d for d in data]
+    
+    def get_projects(self):
+        data =  self.project_container.query_items(query= "SELECT p.id , p.projectName , p.projectTypeId,p.projectDescription,p.projectLocation,p.projectCreatedby,p.createdAt FROM Projects p" , enable_cross_partition_query=True)
         return [ d for d in data]
 
     def get_tree(self, tree_id):

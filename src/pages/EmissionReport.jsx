@@ -86,7 +86,7 @@ const dummyData = {
         ]
     ]
     ,
-    "emissionBreakDown":[    ],
+    "emissionBreakdown":[    ],
     "energyBreakdown":[
         {"source": "Coal" , "amount": 5000},
         {"source": "Wind" , "amount": 5000},
@@ -106,7 +106,7 @@ const EmissionReport = () => {
     const [forestOption, setForestOption] = useState(1)
     const [chartOptions, setChartOptions] = useState({
             chart: {id: 'emission timeline'},
-            xaxis: {categories: data.timeline.map(v => v.month) , title:"Month Number" }
+            xaxis: {categories: data.timeline.map(v => v.month) , title:{text:"Month Number"} }
           })
     
     const [chartData , setChartData] = useState(
@@ -125,7 +125,15 @@ const EmissionReport = () => {
                 setChartOptions(
                     {
                         chart: {id: 'emission timeline'},
-                        xaxis: {categories: response.data.timeline.map(v => v.month) , title:"Month Number" }
+                        xaxis: {
+                            categories: response.data.timeline.map(v => v.month) , 
+                            title:"Month Number" },
+                        yaxis: {
+                            title : {text: "Net Emission (CO2) in kg"},
+                            labels: {
+                                formatter: (v) => v.toFixed(2)
+                            }
+                        }
                     }
                 )
                 setChartData([{
@@ -159,7 +167,7 @@ const EmissionReport = () => {
                 </Col>
             </Row>
             <Row style={{margin:"40px 0px"}} gutter={24} >
-                <Col span={12}>
+                <Col span={10}>
                     <Row gutter={12}>
                         <Col  span={8}>
                             <CardStyled  title="Emission (Est)">
@@ -196,8 +204,8 @@ const EmissionReport = () => {
                         </Col>
                     </Row>
                 </Col>
-                <Col span={12}>         
-                        <Card  title="Net Emission over time">
+                <Col span={14}>         
+                        <Card  title="Net Emission over months">
                             <Chart options={chartOptions} series={chartData}></Chart>
                         </Card>    
                 </Col>
@@ -229,7 +237,7 @@ const EmissionReport = () => {
                         style={{width:"100%"}}
                         // title={() => <Title style={{textAlign:"center"}} level={5}>Forest Estimation</Title>}
                         columns = {causeOfEmissionColumns}
-                        dataSource={data.emissionBreakDown}
+                        dataSource={data.emissionBreakdown}
                         pagination={false}>
                     </Table>
                 </Col>

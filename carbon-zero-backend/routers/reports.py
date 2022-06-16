@@ -135,5 +135,5 @@ def get_report(reportId):
         params=r["params"]
     )
 
-    print(data)
+    # print(data)
     return data

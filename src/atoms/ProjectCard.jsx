@@ -13,7 +13,7 @@ const ProjectCard = (props) => {
           title={props.title+" - "+props.type}
           extra={
            <div direction="row">  
-              <Link to={{}}> Create New Report</Link>
+              <Link to={`/projects/${props.projectId}/reports/create`}> Create New Report</Link>
               <RouteButton btnType="primary" title="View Reports" 
                   onClick = {()=>navigate(`/projects/${props.projectId}/reports`)}/>
             </div>
@@ -23,6 +23,7 @@ const ProjectCard = (props) => {
             marginTop: 10
           }}
           >
+            <p> {props.projectDescription} </p>
           <ProjectCardFooter createdAt ={props.createdAt} createdBy={props.createdBy}/>
         </Card>
       )
