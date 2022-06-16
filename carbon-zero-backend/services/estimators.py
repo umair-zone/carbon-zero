@@ -8,11 +8,6 @@ dbs = DBService()
 
 
 
-
-
-
-
-
 def co2_from_cement(amount_cement:Decimal , energy_from_coal:Decimal):
     return dbs.get_emission("CEMENT")['emission'] * amount_cement + dbs.get_emission("ENERGYCOAL")['emission'] * energy_from_coal
 
@@ -46,9 +41,16 @@ def co2_estimator(project_type_id:int , params):
     return total_co2_emitted
 
 def read_tree_data():
-    return dbs.get_trees()
+    data = []
+    for t in dbs.get_trees():
+        print(t)
+        data.append({
+            "id": t["id"],
+            "absorbtionRate": t["absorbtionRate"] * 1000, #converting to kgs
+            "area": t["areaRequirement"] 
+        })
 
-
+    return data
 
 
 def forest_estimator(amount_of_co2:Decimal , minimum_by_user={}, maximum_by_user={}):
@@ -86,16 +88,18 @@ def get_absorbion_rate_at_month(grown_absorbtion, maturity_in_months , month):
 
 def get_report(project_id , params , minimum_by_user={} , maximum_by_user={}):
     data = {}
-    projects = dbs.get_project("3b27f01fb0df4f24a46090a4cb3c3c0c")
+    projects = dbs.get_project("aedfb6db2d384a2bb0f6d79bc5ac0d50")
     if len(projects) == 0 :
         return 
     project_type_id = projects[0]["projectTypeId"]
     
     data = data | {"projectName" : projects[0]["projectName"] , "projectType": "Cement Manufacture" }
     
-    print(params)
+    
     co2_emission = co2_estimator(project_type_id, params)
     trees = forest_estimator(co2_emission , minimum_by_user , maximum_by_user)
+
+    
 
     data["emissionEstimation"] = co2_emission
     data["forestEstimation"] = [t for t in trees]
@@ -103,8 +107,14 @@ def get_report(project_id , params , minimum_by_user={} , maximum_by_user={}):
     
     timeline = []
     
-    for m in range(10*12):
-        total_absorbtion = sum([get_absorbion_rate_at_month(10 , 12 , m) for t in trees])
+    for m in range(8*12):
+        total_absorbtion = 0
+        for t in trees:
+            tree = dbs.get_tree(t["id"])
+            grown_absrobtion = tree["absorbtionRate"] * 1000
+            maturity_in_months = tree["agetoMaturity"] * 12
+            total_absorbtion += get_absorbion_rate_at_month(grown_absrobtion , maturity_in_months, m)
+        
         timeline.append({"netEmission": co2_emission - total_absorbtion,"month": m})
     
     data["timeline"] = timeline   
