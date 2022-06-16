@@ -32,9 +32,7 @@ class DBService:
         tree_container.create_item({"id": get_id() , "name":"" ,"scientificName":"" ,"absorbtionRate": 4 , "area": 4 })
         tree_container.create_item({"id": get_id() , "name":"" ,"scientificName":"" ,"absorbtionRate": 5 , "area": 1 })
 
-        
-        
-        
+         
         #emission data
         emission_data = [{"cause": "Cement Manufacturing" , "code" : "CEMENT", "emission": 0.9 , "unit":"kg"},
         {"cause": "Energy from coal" , "code" : "ENERGYCOAL", "emission": 1.01 , "unit":"kwh"},
@@ -45,7 +43,7 @@ class DBService:
         for d in emission_data:
             emission_container.create_item({"id": get_id()}|d )
 
-        # emission_container.create_item({"id":get_id})
+    
 
     def __init__(self ):
         self.client = CosmosClient(URL, KEY)
@@ -105,7 +103,7 @@ class DBService:
 
     def get_report(self, reportId:str):
         data = self.report_container.query_items(
-            query= f"SELECT r.id , r.params  FROM Report r WHERE r.id='{reportId}' " , 
+            query= f"SELECT r.id , r.projectId, r.params  FROM Report r WHERE r.id='{reportId}' " , 
             enable_cross_partition_query=True
         )
         try:

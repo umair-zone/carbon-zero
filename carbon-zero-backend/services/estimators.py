@@ -25,16 +25,17 @@ def co2_from_powerplant():
 
 
 def co2_estimator(project_type_id:int , params):
+    print(params)
     
     total_co2_emitted = 0
     
     if project_type_id == 1:
         coal_energy = 0
-        for s in params.energySources:
-            coal_energy = s.energyAmount if s.energySource == 'Coal' else coal_energy
+        for s in params["energySources"]:
+            coal_energy = s["energyAmount"] if s["energySource"] == 'Coal' else coal_energy
         
         total_co2_emitted += co2_from_cement(
-            amount_cement= params.manufactureAmount,
+            amount_cement= params["manufactureAmount"],
             energy_from_coal= coal_energy
         )
     if project_type_id == 2:
@@ -85,17 +86,18 @@ def get_absorbion_rate_at_month(grown_absorbtion, maturity_in_months , month):
 
 def get_report(project_id , params , minimum_by_user={} , maximum_by_user={}):
     data = {}
-    projects = dbs.get_project(project_id)
+    projects = dbs.get_project("3b27f01fb0df4f24a46090a4cb3c3c0c")
     if len(projects) == 0 :
         return 
     project_type_id = projects[0]["projectTypeId"]
     
     data = data | {"projectName" : projects[0]["projectName"] , "projectType": "Cement Manufacture" }
     
-    
+    print(params)
     co2_emission = co2_estimator(project_type_id, params)
     trees = forest_estimator(co2_emission , minimum_by_user , maximum_by_user)
 
+    data["emissionEstimation"] = co2_emission
     data["forestEstimation"] = [t for t in trees]
     data["numOfTrees"] = sum( [t["number_of_trees"] for t in trees])
     

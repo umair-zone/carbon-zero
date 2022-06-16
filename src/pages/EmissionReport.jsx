@@ -117,9 +117,6 @@ const EmissionReport = () => {
     )
 
     useEffect(()=>{ 
-        
-        
-
         async function fetchData(){
             setLoading(true)
             try{
