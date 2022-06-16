@@ -3,10 +3,15 @@ import styled from "styled-components"
 import { Spin } from 'antd'
 
 
-const PW = styled.div`margin: 25px;padding: 25px;background-color: #fff`
+const PW = styled.div`
+    margin: 100px;
+    padding: 40px;
+    background-color: #1c1c1c;
+    color: #fff;
+   `
 
 const PageWrapper = (props) => {
-    return (<PW> <Spin tip="Preparing the report..."  spinning={props.loading}>{props.children} </Spin></PW>)
+    return (<PW className='pageWrapper'> <Spin tip="Preparing the report..."  spinning={props.loading}>{props.children} </Spin></PW>)
 }
 
 const page =  {

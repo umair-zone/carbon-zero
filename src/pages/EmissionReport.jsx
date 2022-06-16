@@ -157,7 +157,7 @@ const EmissionReport = () => {
         <PageWrapper loading={loading}>
             <Row style={{margin:"40px 0px"}}>
                 <Col span={16}>
-                    <Title level={2}>{data.projectName} - {data.projectType}</Title>
+                    <Title style={{color:"white"}} level={2}>{data.projectName} - {data.projectType}</Title>
                 </Col>
                 <Col span={8} >
                     <Space  style={{justifyContent:"right" , width:"100%"}}>

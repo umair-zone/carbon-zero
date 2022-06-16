@@ -133,6 +133,5 @@ def get_report(reportId):
         project_id=r["projectId"],
         params=r["params"]
     )
-
-    # print(data)
     return data
+

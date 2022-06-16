@@ -102,6 +102,18 @@ class DBService:
         pass
 
 
+
+    def get_reports(self, projectId):
+        data = self.report_container.query_items(
+            query= f''' 
+            SELECT r.id , r.name , r.projectId , r.params
+            FROM Reports r where projectId='{projectId}' ''',
+            enable_cross_partition_query=True
+        )
+
+        return [d for d in data ]
+
+
     def add_trees(self):
         pass
 

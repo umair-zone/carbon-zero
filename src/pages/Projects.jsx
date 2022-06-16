@@ -4,7 +4,13 @@ import ProjectCard from  '../atoms/ProjectCard'
 import ProjectButton from '../atoms/ProjectButton';
 import styled from 'styled-components';
 //import {SERVER_URL} from "../Config";
+import page from '../atoms/Page'
 import axios from 'axios';
+
+
+const { PageWrapper } =  page
+
+
 
 const { Search } = Input;
 
@@ -23,9 +29,9 @@ const StyledProjectButton = styled(ProjectButton)`
 `;
 
 const StyledForm = styled.form`
-    padding: 40px;
-    height:  100vh;
-    overflow: auto;
+    padding: 100px;
+    margin-bottom: 50px;
+
 `;
 
 const StyledLayout = styled(Layout)`
@@ -70,22 +76,25 @@ class Projects extends React.Component {
     render() {
 
     return (
+      // <PageWrapper loading={false}>
         <StyledForm>   
-            <StyledLayout className="layout" style={{backgroundColor:"white"}}>          
+            {/* <StyledLayout className="layout" style={{backgroundColor:"white"}}>           */}
                 <Form>
                    <StyledRow direction="row" style={{justifyContent:'space-between'}}>
                      <Form.Item
                         label="Search Projects:"
-                        name="search"                                              
+                        name="search"                                             
                       >
                           <StyledSearch
+                                size='large'
                                 placeholder="search"
                                 onChange={this.handleAPI}
                           />
                       </Form.Item>
                       <Form.Item>
                             <StyledProjectButton 
-                            btnType="primary"
+                            size="large"
+                            btnType="secondary"
                             title="Create Project +"
                             modaltitle="Create a Project"
                             btnstate="Submit"
@@ -101,8 +110,9 @@ class Projects extends React.Component {
                 ))}
 
 
-            </StyledLayout>
-        </StyledForm>              
+            {/* </StyledLayout> */}
+        </StyledForm>
+      // </PageWrapper>              
     )
   }
 }

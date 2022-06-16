@@ -8,6 +8,7 @@ import axios from 'axios';
 //import { withRouter } from "react-router-dom";
 import {useParams} from 'react-router-dom';
 
+
 const { Search } = Input;
 
 const StyledRow = styled(Row)`
@@ -21,9 +22,7 @@ const StyledSearch = styled(Search)`
 `;
 
 const StyledForm = styled.form`
-    padding: 40px;
-    height:  100vh;
-    overflow: auto;
+    padding: 100px;
 `;
 
 
@@ -78,14 +77,17 @@ class Reports extends React.Component {
       }).catch((err)=>{
          alert(err)
       })
-  }
+ 
+      axios.get(``)
+ 
+    }
   
   render() {
    //alert(JSON.stringify(this.props.param.projectId))
 
   return (    
       <StyledForm>  
-        <Layout className="layout" style={{backgroundColor:"white"}} >   
+        {/* <Layout className="layout" style={{backgroundColor:"white"}} >    */}
 
               <ReportPanel project={this.state.projectName}/>
 
@@ -104,7 +106,7 @@ class Reports extends React.Component {
                 <ReportCard key={id} projectId={id} type={type} title ={title} createdBy={createdBy} createdAt={createdAt}/>
               ))}   
               
-        </Layout>
+        {/* </Layout> */}
         </StyledForm>    
     )
   }

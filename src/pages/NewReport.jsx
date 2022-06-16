@@ -5,13 +5,12 @@ import ProjectHeader from '../components/ProjectHeader'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { HOST } from '../services/api/config'
+import page from '../atoms/Page'
 
 
-const PageWrapper = styled.div`
-    margin: 25px;
-    padding: 25px;
-    background-color: #fff
-`
+const {PageWrapper} = page
+
+
 
 export const Context = createContext()
 
@@ -57,7 +56,7 @@ const NewReport = (props) => {
 
 
     return (
-        <PageWrapper>
+        <PageWrapper loading={false}>
             <ProjectHeader {...props.projectData} >            
         </ProjectHeader>   
 
@@ -86,7 +85,7 @@ const NewReport = (props) => {
                 <Col span={24}>
                     <Table columns={columns}></Table>
                 </Col>
-            </Row>
+            </Row> 
             <Row justify='end'>
                 <Button loading={loading} onClick={getReport} size='large' type='primary'> Proceed To Report </Button>   
             </Row>
