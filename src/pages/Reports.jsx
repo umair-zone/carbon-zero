@@ -21,9 +21,7 @@ const StyledSearch = styled(Search)`
 `;
 
 const StyledForm = styled.form`
-    padding: 40px;
-    height:  100vh;
-    overflow: auto;
+    padding: 100px;
 `;
 
 
@@ -85,7 +83,7 @@ class Reports extends React.Component {
 
   return (    
       <StyledForm>  
-        <Layout className="layout" style={{backgroundColor:"white"}} >   
+        {/* <Layout className="layout" style={{backgroundColor:"white"}} >    */}
 
               <ReportPanel project={this.state.projectName}/>
 
@@ -104,7 +102,7 @@ class Reports extends React.Component {
                 <ReportCard key={id} projectId={id} type={type} title ={title} createdBy={createdBy} createdAt={createdAt}/>
               ))}   
               
-        </Layout>
+        {/* </Layout> */}
         </StyledForm>    
     )
   }

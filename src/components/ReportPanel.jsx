@@ -3,11 +3,10 @@ import RouteButton from '../atoms/RouteButton';
 import ProjectButton from '../atoms/ProjectButton';
 import React from 'react';
 import styled from 'styled-components';
-//import {useParams} from 'react-router-dom';
+import {navigate} from 'react-router'
+import {useParams , useNavigate} from 'react-router-dom';
 
-function sayHello() {
-   alert('You clicked New Report!');
- }
+
 
 const StyledRow = styled(Row)`
     display: flex;
@@ -17,7 +16,8 @@ const StyledRow = styled(Row)`
 
 const ReportPanel = (props) => {
   
-  //const {projectId} = useParams();
+  const {projectId} = useParams();
+  const navigate = useNavigate();
 
   return(
         <Form>
@@ -36,7 +36,7 @@ const ReportPanel = (props) => {
                         modaltitle="Edit a Project"
                         btnstate="Update"
                        />  
-                      <RouteButton btnType="primary" title="New Report" onClick={sayHello}/>
+                      <RouteButton btnType="primary" title="New Report" onClick={() => navigate(`/projects/${projectId}/reports/create`)}/>
                       </Form.Item>
               </StyledRow>     
           </Form>
