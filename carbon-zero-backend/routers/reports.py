@@ -1,4 +1,3 @@
-import re
 from typing import Iterable, Union
 from fastapi import APIRouter
 from pydantic import BaseModel

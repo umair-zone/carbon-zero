@@ -18,7 +18,11 @@ export const Context = createContext()
 
 const NewReport = (props) => {
     const [loading, setLoading] = useState(false)
-    const [trees , setTrees] = useState()
+    const [trees , setTrees] = useState(
+        [{"id": 1 , "name":"Tree 1"},
+        {"id": 2 , "name":"Tree 1"},
+        {"id": 1 ,"name": "Tree 1"}]
+    )
     const navigate = useNavigate()
     
     
@@ -47,19 +51,23 @@ const NewReport = (props) => {
 
     const { Option } = Select
    
+    const options = [
+
+    ]
+
+
     return (
         <PageWrapper>
             <ProjectHeader {...props.projectData} >            
         </ProjectHeader>   
 
             {props.children} 
-            {/* <Row>
+            <Row>
                 <Form>
                     <Form.Item label="Tree">
                         <Select>
-                            {}
+                          
                             <Option></Option>
-
                         </Select>
                     </Form.Item>
                     <Form.Item label="Maximum">
@@ -73,7 +81,7 @@ const NewReport = (props) => {
                         </Select>
                     </Form.Item>
                 </Form>            
-            </Row> */}
+            </Row>
             <Row>
                 <Col span={24}>
                     <Table columns={columns}></Table>
