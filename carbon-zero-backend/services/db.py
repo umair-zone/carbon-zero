@@ -1,5 +1,6 @@
 from azure.cosmos import CosmosClient , DatabaseProxy, PartitionKey , ContainerProxy
 import uuid
+import csv
 
 
 get_id = lambda : uuid.uuid4().hex.lower()
@@ -18,6 +19,7 @@ class DBService:
         db.create_container_if_not_exists("Report" , PartitionKey("/projectId"))
         db.create_container_if_not_exists("ForestEstimation" , PartitionKey("/reportId"))
         tree_container = db.create_container_if_not_exists("Tree" , PartitionKey("/id"))
+        emission_container = db.create_container_if_not_exists("Emission" , PartitionKey("/id"))
 
         #initial setup
 
@@ -30,6 +32,20 @@ class DBService:
         tree_container.create_item({"id": get_id() , "name":"" ,"scientificName":"" ,"absorbtionRate": 4 , "area": 4 })
         tree_container.create_item({"id": get_id() , "name":"" ,"scientificName":"" ,"absorbtionRate": 5 , "area": 1 })
 
+        
+        
+        
+        #emission data
+        emission_data = [{"cause": "Cement Manufacturing" , "code" : "CEMENT", "emission": 0.9 , "unit":"kg"},
+        {"cause": "Energy from coal" , "code" : "ENERGYCOAL", "emission": 1.01 , "unit":"kwh"},
+        {"cause": "Power plant coal combunsion - Anthracite coal" , "code" : "COALANTH", "emission": 3.3 , "unit":"kg"},
+        {"cause": "Power plant coal combunsion - Bituminous coal" , "code" : "COALBITU", "emission": 2.42 , "unit":"kg"}
+        ]
+
+        for d in emission_data:
+            emission_container.create_item({"id": get_id()}|d )
+
+        # emission_container.create_item({"id":get_id})
 
     def __init__(self ):
         self.client = CosmosClient(URL, KEY)
@@ -38,7 +54,7 @@ class DBService:
         self.project_type_container = self.db.get_container_client("ProjectType")
         self.report_container = self.db.get_container_client("Report")
         self.tree_container = self.db.get_container_client("Tree")
-
+        self.emission_container = self.db.get_container_client("Emission")
     
     
     def create_project(self, projectName:str, projectTypeId:str , projectDescription:str=None ):
@@ -63,6 +79,16 @@ class DBService:
         )
 
 
+    def get_project(self, projectId:str):
+        data =  self.project_container.query_items(
+            query= f"SELECT *  FROM Project p WHERE p.id='{projectId}'", 
+            enable_cross_partition_query=True)
+        return [ d for d in data]
+
+    def get_project_type(self, projectTypeId:str):
+        pass
+
+
     def add_trees(self):
         pass
 
@@ -72,8 +98,35 @@ class DBService:
         return [ d for d in data]
 
 
-    def create_report(self , name , params , ):
-        return self.report_container.create_item({"id": get_id(),"name": name,"params": params})
+    def create_report(self , name , projectId ,params , ):
+        return self.report_container.create_item({"id": get_id(),
+        "name": name, 'projectId': projectId,"params": params})
     
 
+    def get_report(self, reportId:str):
+        data = self.report_container.query_items(
+            query= f"SELECT r.id , r.params  FROM Report r WHERE r.id='{reportId}' " , 
+            enable_cross_partition_query=True
+        )
+        try:
+            return [d for d in data][0]
+        except IndexError:
+            raise InvalidEmissionCodeError
 
+    def read_emissions(self):
+        data = self.emission_container.query_items(query= "SELECT e.code , e.emission  FROM Emission e" , enable_cross_partition_query=True)
+        return [d for d in data]
+
+    def get_emission(self, code:str):
+        data = self.emission_container.query_items(
+            query= f"SELECT e.code , e.emission  FROM Emission e WHERE e.code='{code}' " , 
+            enable_cross_partition_query=True
+        )
+        try:
+            return [d for d in data][0]
+        except IndexError:
+            raise InvalidEmissionCodeError
+
+
+class InvalidEmissionCodeError(Exception):
+    pass

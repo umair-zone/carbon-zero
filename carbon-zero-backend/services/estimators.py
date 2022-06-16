@@ -1,19 +1,51 @@
 from decimal import Decimal
 import sys
 from pulp import LpProblem , LpMinimize , LpVariable , lpSum , const , LpStatus
-from db import DBService
+from .db import DBService
+# from ..models import CementParameter , EnerySource
 
 dbs = DBService()
 
 
-def co2_estimator():
-    pass
 
+
+
+
+
+
+def co2_from_cement(amount_cement:Decimal , energy_from_coal:Decimal):
+    return dbs.get_emission("CEMENT")['emission'] * amount_cement + dbs.get_emission("ENERGYCOAL")['emission'] * energy_from_coal
+
+def co2_from_highway(number_vehicles ):
+    return 100
+
+def co2_from_powerplant():
+    return 100
+
+
+
+def co2_estimator(project_type_id:int , params):
+    
+    total_co2_emitted = 0
+    
+    if project_type_id == 1:
+        coal_energy = 0
+        for s in params.energySources:
+            coal_energy = s.energyAmount if s.energySource == 'Coal' else coal_energy
+        
+        total_co2_emitted += co2_from_cement(
+            amount_cement= params.manufactureAmount,
+            energy_from_coal= coal_energy
+        )
+    if project_type_id == 2:
+        total_co2_emitted += co2_from_highway()
+    if project_type_id == 3:
+        total_co2_emitted += co2_from_cement()
+
+    return total_co2_emitted
 
 def read_tree_data():
     return dbs.get_trees()
-
-
 
 
 
@@ -43,7 +75,43 @@ def forest_estimator(amount_of_co2:Decimal , minimum_by_user={}, maximum_by_user
 
     return [ {"tree_id": var.name[1:] , "number_of_trees": var.value()} for var in prob.variables() ]
 
+
+def get_absorbion_rate_at_month(grown_absorbtion, maturity_in_months , month):
+    if month < maturity_in_months:
+        return (grown_absorbtion/maturity_in_months)*month
+    return grown_absorbtion
+
+
+
+def get_report(project_id , params , minimum_by_user={} , maximum_by_user={}):
+    data = {}
+    projects = dbs.get_project(project_id)
+    if len(projects) == 0 :
+        return 
+    project_type_id = projects[0]["projectTypeId"]
     
+    data = data | {"projectName" : projects[0]["projectName"] , "projectType": "Cement Manufacture" }
+    
+    
+    co2_emission = co2_estimator(project_type_id, params)
+    trees = forest_estimator(co2_emission , minimum_by_user , maximum_by_user)
+
+    data["forestEstimation"] = [t for t in trees]
+    data["numOfTrees"] = sum( [t["number_of_trees"] for t in trees])
+    
+    timeline = []
+    
+    for m in range(10*12):
+        total_absorbtion = sum([get_absorbion_rate_at_month(10 , 12 , m) for t in trees])
+        timeline.append({"netEmission": co2_emission - total_absorbtion,"month": m})
+    
+    data["timeline"] = timeline   
+
+    return data
+
 if __name__ == "__main__":
     # read_tree_data()
-    print(forest_estimator(1000))
+#    print(co2_from_cement(100 , 100))
+    # print(dbs.get_project("3b27f01fb0df4f24a46090a4cb3c3c0c"))
+    get_report()
+

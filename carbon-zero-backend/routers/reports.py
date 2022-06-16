@@ -1,26 +1,38 @@
+import re
 from typing import Iterable , Union
 from fastapi import APIRouter
 from pydantic import BaseModel 
 from decimal import Decimal
+from services.db import DBService
+from services import estimators
+
+dbs = DBService()
 
 router = APIRouter()
 
 class EnerySource(BaseModel):
+    key:int
     energySource : str
-    energyAmount: Decimal
+    energyAmount: float
 
 class CementParameter(BaseModel):
     projectId: str
+    projectName: str
+    projectType: str
+    projectDescription:str
     energySources: Iterable[EnerySource]
-    manufactureAmount: Decimal
-    CO2Capture: Decimal
+    manufactureAmount: float
+    CO2Capture: float
     
 class PowerPlantParameter(BaseModel):
     projectId: str
+    projectName: str
+    projectType: str
     energySources: Iterable[EnerySource]
     energyProduction: Iterable[EnerySource]
 
 data = {
+    "id": 1,
     "projectName": "ABC Cement",
     "projectType": "Cement Manufacture",
     "emissionEstimation": 12.2,
@@ -77,6 +89,10 @@ data = {
 
 @router.post("/cement")
 def create_report_cement(report:CementParameter):
+    params = report.dict()
+    params["energySources"] = [s for s in report.energySources]
+    data = dbs.create_report(name= f"Report - {report.projectName}", 
+     projectId=report.projectId, params=params)    
     return data
 
 
@@ -90,3 +106,12 @@ def create_report_highway(report:CementParameter):
     return data
 
 
+@router.get("/{reportId}")
+def get_report(reportId):
+    r = dbs.get_report(reportId)
+    estimators.get_report(
+        project_id = r["project_id"],
+        params = r["params"]
+    )
+
+    return data

@@ -3,6 +3,7 @@ import {Typography , Select  , Form, InputNumber, Button, Table, Row, Col, Space
 import styled from 'styled-components'
 import ProjectHeader from '../components/ProjectHeader'
 import NewReport from './NewReport'
+import { useParams } from 'react-router-dom'
 
 const {Title} = Typography
 const {Option} = Select
@@ -24,15 +25,21 @@ const ParameterSection = styled.section`
 `
 
 
-const projectData = {
-    "projectId": 1,
-    "projectName": "XYZ Cement Copration",
-    "projectType": "Cement Manufacturer",
-    "projectDescription": "This is some project discription"
-}
+
 
 
 const NewReportCement = (props) => {
+
+    const params  = useParams()
+
+    const [projectData , setProjectData] = useState(
+        {
+            "projectId": params["projectId"],
+            "projectName": "XYZ Cement Copration",
+            "projectType": "Cement Manufacturer",
+            "projectDescription": "This is some project discription"
+        }
+    )
 
     const [manufactureAmount , setManufactureAmount] = useState(1)
     const [CO2Capture , setCO2Capture] = useState(0)

@@ -1,8 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Page from '../atoms/Page'
 import {Row , Col, Button, Space, Card, Table , Typography, Modal, Input , Form} from 'antd'
 import styled from 'styled-components'
 import Chart from 'react-apexcharts'
+import { useParams } from 'react-router-dom'
+import axios from 'axios'
+import { HOST } from '../services/api/config'
 
 
 const {PageWrapper} = Page
@@ -49,7 +52,7 @@ const causeOfEmissionColumns = [
     {title: "Suggestions" , dataIndex:"suggestions" , key:2},
 ]
 
-const data = {
+const dummyData = {
     "projectName": "ABC Cement",
     "projectType": "Cement Manufacture",
     "emissionEstimation": 12.2,
@@ -83,10 +86,7 @@ const data = {
         ]
     ]
     ,
-    "emissionBreakDown":[
-        {"amountOfEmission": 1000 , "causeOfEmission":"Energy Consumption", "suggestions":"Use energy effectify"},
-        {"amountOfEmission": 1000 , "causeOfEmission":"Energy Consumption", "suggestions":"Use energy effectify"},
-    ],
+    "emissionBreakDown":[    ],
     "energyBreakdown":[
         {"source": "Coal" , "amount": 5000},
         {"source": "Wind" , "amount": 5000},
@@ -95,24 +95,20 @@ const data = {
     ]
     ,
     "timeline":[
-        {"netEmission": 1000 , "month":1},
-        {"netEmission": 700 , "month":2},
-        {"netEmission": 500 , "month":3},
-        {"netEmission": 200 , "month":4},
-        {"netEmission": 10 , "month":5},
     ]
 }
 
 
 const EmissionReport = () => {
-
+    const params = useParams()
+    const [loading , setLoading] = useState(false)
+    const [data , setData] = useState(dummyData)
     const [forestOption, setForestOption] = useState(1)
     const [chartOptions, setChartOptions] = useState({
-            chart: {
-              id: 'apexchart-example'
-            },
+            chart: {id: 'emission timeline'},
             xaxis: {categories: data.timeline.map(v => v.month) , title:"Month Number" }
           })
+    
     const [chartData , setChartData] = useState(
         [{
             name: 'Net Emission',
@@ -120,9 +116,40 @@ const EmissionReport = () => {
          }]
     )
 
+    useEffect(()=>{ 
+        
+        
 
+        async function fetchData(){
+            setLoading(true)
+            try{
+                const response = await axios.get(`${HOST}/reports/${params.reportId}`)
+                setData(response.data)
+                setChartOptions(
+                    {
+                        chart: {id: 'emission timeline'},
+                        xaxis: {categories: response.data.timeline.map(v => v.month) , title:"Month Number" }
+                    }
+                )
+                setChartData([{
+                    name: 'Net Emission',
+                    data:  response.data.timeline.map(v => v.netEmission)
+                 }])
+                 
+            }catch(e){
+                console.log(e)
+            }finally{
+                setLoading(false)
+            }
+            
+        }
+        fetchData()
+    }, [])
+        
+    
+    
     return (
-        <PageWrapper>
+        <PageWrapper loading={loading}>
             <Row style={{margin:"40px 0px"}}>
                 <Col span={16}>
                     <Title level={2}>{data.projectName} - {data.projectType}</Title>
@@ -224,7 +251,7 @@ const SaveReport  = ({visible, onCreate, onCancel}) => {
     const [form] = useForm()
 
     return (
-    <Modal visible={visible}  title="Save Report" okText="Save" cancelText="Cancel" 
+    <Modal   title="Save Report" okText="Save" cancelText="Cancel" 
     onCancel={onCancel} 
     onOk={
         () => {
