@@ -36,7 +36,7 @@ def co2_estimator(project_type_id:int , params):
     if project_type_id == 3:
         total_co2_emitted += co2_from_cement()
 
-    return total_co2_emitted  
+    return total_co2_emitted  * 12
 
 def read_tree_data():
     data = []
@@ -93,14 +93,10 @@ def get_report(project_id , params , minimum_by_user={} , maximum_by_user={}):
     
     data = data | {"projectName" : projects[0]["projectName"] , "projectType": "Cement Manufacture" }
     
-    
     co2_emission = co2_estimator(project_type_id, params)
     trees = forest_estimator(co2_emission , minimum_by_user , maximum_by_user)
-
-    
-
-    data["emissionEstimation"] = co2_emission
-    
+ 
+    data["emissionEstimation"] = co2_emission - params["CO2Capture"] 
     data["numberOfTrees"] = sum( [t["number_of_trees"] for t in trees])
     
     timeline = []
@@ -131,7 +127,7 @@ def get_report(project_id , params , minimum_by_user={} , maximum_by_user={}):
         for tree in trees2:
             grown_absrobtion = tree["absorbtionRate"] * 1000
             maturity_in_months = tree["agetoMaturity"] * 12
-            total_absorbtion += get_absorbion_rate_at_month(grown_absrobtion , maturity_in_months, m)
+            total_absorbtion += get_absorbion_rate_at_month(grown_absrobtion , maturity_in_months, m) * tree["number_of_trees"]
         
         timeline.append({"netEmission": f'{(co2_emission - total_absorbtion):g}',"month": m})
     
@@ -147,14 +143,7 @@ def get_report(project_id , params , minimum_by_user={} , maximum_by_user={}):
         "suggestions": "Use enery efficient mechinaries , use alternative methods to reduce CO2 emission"}
     ]
  
-    
-    print(params)
-
     return data
 
-if __name__ == "__main__":
-    # read_tree_data()
-#    print(co2_from_cement(100 , 100))
-    # print(dbs.get_project("3b27f01fb0df4f24a46090a4cb3c3c0c"))
-    get_report()
+
 

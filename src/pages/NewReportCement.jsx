@@ -24,10 +24,6 @@ const ParameterSection = styled.section`
     margin-bottom:50px
 `
 
-
-
-
-
 const NewReportCement = (props) => {
 
     const params  = useParams()
@@ -44,14 +40,7 @@ const NewReportCement = (props) => {
     const [manufactureAmount , setManufactureAmount] = useState(1)
     const [CO2Capture , setCO2Capture] = useState(0)
     
-    const [energySources, setEnergySources] = useState([
-        {
-            "energySource": "coal",
-            "energyAmount": 1000,
-            "key":1
-        }
-    ])
-
+    const [energySources, setEnergySources] = useState([])
 
     const columns = [
         {
