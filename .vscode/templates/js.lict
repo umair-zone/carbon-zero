@@ -1,0 +1,23 @@
+This is a license template.
+
+Some variables:
+- File: %(File) [the file the license is inserted to]
+- Path: %(Path) [the path to the file]
+- CurrentYear: %(CurrentYear) [the current year]
+- CurrentMonth: %(CurrentMonth) [the current month]
+- CurrentDay: %(CurrentDay) [the current day]
+- CreationYear: %(CreationYear) [the year the file was created]
+- CreationMonth: %(CreationMonth) [the month the file was created]
+- CreationDay: %(CreationDay) [the day the file was created]
+- Date: %(Date) [the current date]
+- Username: %(Username) [the name of the current user logged in]
+- CopyrightYear: %(CopyrightYear) [the year that should be used for copyright notices]
+
+
+
+
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at http://mozilla.org/MPL/2.0
+
+Note: You can use environment variables with: %(#ENVIRONMENT_VAR).
