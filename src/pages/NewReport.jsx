@@ -1,3 +1,7 @@
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at http://mozilla.org/MPL/2.0
+
 import React, { createContext, useEffect, useState } from 'react'
 import { Button, message, Row,  Col,  Table, Form, Select, InputNumber,Typography, Checkbox} from 'antd'
 import styled from 'styled-components'
