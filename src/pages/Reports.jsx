@@ -5,7 +5,6 @@ import ReportPanel from '../components/ReportPanel';
 import ReportCard from  '../atoms/ReportCard';
 import styled from 'styled-components';
 import axios from 'axios';
-//import { withRouter } from "react-router-dom";
 import {useParams} from 'react-router-dom';
 
 const { Search } = Input;
@@ -81,13 +80,12 @@ class Reports extends React.Component {
   }
   
   render() {
-   //alert(JSON.stringify(this.props.param.projectId))
-
+   
   return (    
       <StyledForm>  
         <Layout className="layout" style={{backgroundColor:"white"}} >   
 
-              <ReportPanel project={this.state.projectName}/>
+              <ReportPanel project={this.state.projectName} projectId={this.props.param.projectId}/>
 
               <StyledRow direction="row" style={{display: 'flex',justifyContent:'space-between'}}>
               <Item>

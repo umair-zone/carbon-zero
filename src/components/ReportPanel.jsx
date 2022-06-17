@@ -1,9 +1,8 @@
 import {Form,Row} from 'antd';
 import RouteButton from '../atoms/RouteButton';
-import ProjectButton from '../atoms/ProjectButton';
+import UpdateButton from '../atoms/UpdateButton';
 import React from 'react';
 import styled from 'styled-components';
-//import {useParams} from 'react-router-dom';
 
 function sayHello() {
    alert('You clicked New Report!');
@@ -17,8 +16,6 @@ const StyledRow = styled(Row)`
 
 const ReportPanel = (props) => {
   
-  //const {projectId} = useParams();
-
   return(
         <Form>
                <StyledRow direction="row"
@@ -31,10 +28,11 @@ const ReportPanel = (props) => {
                       </Form.Item>
                      {/*item 2  */}
                       <Form.Item>
-                      <ProjectButton 
+                      <UpdateButton 
                         title="Edit Project"
                         modaltitle="Edit a Project"
                         btnstate="Update"
+                        projectId={props.projectId}
                        />  
                       <RouteButton btnType="primary" title="New Report" onClick={sayHello}/>
                       </Form.Item>

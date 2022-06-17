@@ -50,20 +50,24 @@ class DBService:
             "projectDescription": projectDescription,
             "projectCreatedby":projectCreatedby,
             "projectLocation":projectLocation,
-            "createdAt":datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+            "createdAt":""#datetime.now().strftime("%d/%m/%Y %H:%M:%S")
             }
         )
 
     def delete_project(self , projectId:str , particationKey:str) -> None:
         self.project_container.delete_item(projectId , particationKey )
 
-    def update_project(self, id , projectName:str, projectTypeId:str , projectDescription:str):
-        self.project_container.replace_item( {
-            "id":id
-            , "projectName": projectName 
-            , "projectTypeId": projectTypeId
-            , "projectDescription": projectDescription}
-        )
+    def update_project(self, projectId:str , projectName:str, projectTypeId:int ,projectDescription:str,projectLocation:str,projectCreatedby:str ):
+                
+        self.project_container.upsert_item({
+            "id": projectId ,
+            "projectName": projectName , 
+            "projectTypeId": projectTypeId,
+            "projectDescription": projectDescription,
+            "projectLocation":projectLocation,
+            "projectCreatedby":projectCreatedby,
+            "createdAt":""#datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        })
 
 
     def add_trees(self):
@@ -82,5 +86,4 @@ class DBService:
     def create_report(self , name , params , ):
         return self.report_container.create_item({"id": get_id(),"name": name,"params": params})
     
-
 
