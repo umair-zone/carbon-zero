@@ -7,6 +7,7 @@ KEY = "BRtpDcctxA4G2wzHjrc1qutU2ELSxi9iALhP4Ais3DgtAaVE0GUL2jRz7enpUTPvmyDGoWV1a
 
 def main():
     DBService.setup(CosmosClient(URL, KEY))
+    DBService().load_dummy_data()
 
 
 if __name__ == "__main__":

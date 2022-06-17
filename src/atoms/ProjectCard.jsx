@@ -8,9 +8,15 @@ const ProjectCard = (props) => {
 
   const navigate = useNavigate();
 
+  const ProjectType = {
+    1 : "Cement Factory",
+    2 : "Highway",
+    3 : "Power Plant"
+  }
+  
   return (
           <Card
-          title={props.title+" - "+props.type}
+          title={props.title+" - "+ ProjectType[props.type]}
           extra={
            <div direction="row">  
               <Link to={`/projects/${props.projectId}/reports/create`}> Create New Report</Link>

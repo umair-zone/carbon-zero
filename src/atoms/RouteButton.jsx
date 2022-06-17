@@ -12,6 +12,7 @@ const RouteButton = (props) => {
      return (
                <>
                <StyledButton key="1" 
+               size='large'
                onClick={props.onClick} 
                type={props.btnType}
                style={{marginLeft:'10px' }}

@@ -1,8 +1,11 @@
-import React, { useContext, useState  } from 'react'
-import {Typography , Select  , Form, InputNumber, Button, Table, Row, Col, Space, Divider,} from 'antd'
+import React, { useState , useEffect } from 'react'
+import {Typography , Select  , Form, InputNumber, Button, Table,  Col,} from 'antd'
 import styled from 'styled-components'
 import ProjectHeader from '../components/ProjectHeader'
 import NewReport from './NewReport'
+import { useParams } from 'react-router-dom'
+import axios from 'axios'
+import { HOST } from '../services/api/config'
 
 const {Title} = Typography
 const {Option} = Select
@@ -23,29 +26,40 @@ const ParameterSection = styled.section`
     margin-bottom:50px
 `
 
-
-const projectData = {
-    "projectId": 1,
-    "projectName": "XYZ Cement Copration",
-    "projectType": "Cement Manufacturer",
-    "projectDescription": "This is some project discription"
-}
-
-
 const NewReportCement = (props) => {
+
+    const {projectId} = useParams()
+
+    const [projectData , setProjectData] = useState({})
 
     const [manufactureAmount , setManufactureAmount] = useState(1)
     const [CO2Capture , setCO2Capture] = useState(0)
     
-    const [energySources, setEnergySources] = useState([
-        {
-            "energySource": "coal",
-            "energyAmount": 1000,
-            "key":1
-        }
-    ])
+    const [energySources, setEnergySources] = useState([])
 
+    
+    useEffect(
+        () => {
+            const fetchProject = async() => {
+                const response = await axios.get(`${HOST}/projects/${projectId}`)
+                setProjectData(
+                    {
+                        "projectId": response.data["id"],
+                        "projectName": response.data["projectName"],
+                        "projectDescription": response.data["projectDescription"],
+                        "projectType": response.data["projectTypeId"] === 1 ? "Cement Factory": ""
+                    }
+                )
+            
+            }
 
+            fetchProject()
+        }, []
+    )
+    
+    
+    
+    
     const columns = [
         {
             "title": "Energy Source",

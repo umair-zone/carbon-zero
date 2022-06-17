@@ -3,6 +3,7 @@ import {Typography , Select  , Form, InputNumber, Button, Table,  Col,} from 'an
 import styled from 'styled-components'
 import NewReport from './NewReport'
 import { useForm } from 'antd/lib/form/Form'
+import { useParams } from 'react-router-dom'
 
 const {Title} = Typography
 
@@ -32,6 +33,18 @@ const projectData = {
 }
 
 const NewReportHighway = () => {
+    
+    const params = useParams()
+    const [projectData , setProjectData] = useState(
+        {
+            "projectId": params["projectId"],
+            "projectName": "Colombo Kandy Highway",
+            "projectType": "Highway",
+            "projectDescription": "This is some project discription"
+        }    
+    )
+    
+    
     const [highwayVehicleForm] = useForm()
     const [trafficFlow, setTrafficFlow] = useState([])
 
@@ -78,7 +91,7 @@ const NewReportHighway = () => {
     }
 
     return (
-        <NewReport projectData={projectData}>
+        <NewReport projectData={{...projectData, "trafficFlow":trafficFlow}}>
             <ParameterSection>
                 <Title level={3}> Traffic Flow of Highway</Title>
                     <Form form={highwayVehicleForm}  layout='inline' onFinish={addTrafficFlow} >

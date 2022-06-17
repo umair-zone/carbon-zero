@@ -122,9 +122,9 @@ class ProjectButton extends React.Component {
                         message:"Please select project type"
                     }]}
                       >
-                        <Select.Option value="1" >Cement Manufacturer</Select.Option>
-                        <Select.Option value="2" >Highway</Select.Option>
-                        <Select.Option value="3" >Power Plant</Select.Option>
+                        <Select.Option value={1} >Cement Manufacturer</Select.Option>
+                        <Select.Option value={2} >Highway</Select.Option>
+                        <Select.Option value={3} >Power Plant</Select.Option>
                       </Select>
                     </Form.Item>
 

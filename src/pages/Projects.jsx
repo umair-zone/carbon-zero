@@ -3,8 +3,14 @@ import {Layout,Form,Input,Row} from 'antd';
 import ProjectCard from  '../atoms/ProjectCard'
 import ProjectButton from '../atoms/ProjectButton';
 import styled from 'styled-components';
-//import {SERVER_URL} from "../Config";
+import {HOST} from "../services/api/config";
+import page from '../atoms/Page'
 import axios from 'axios';
+
+
+const { PageWrapper } =  page
+
+
 
 const { Search } = Input;
 
@@ -23,9 +29,9 @@ const StyledProjectButton = styled(ProjectButton)`
 `;
 
 const StyledForm = styled.form`
-    padding: 40px;
-    height:  100vh;
-    overflow: auto;
+    padding: 100px;
+    margin-bottom: 50px;
+
 `;
 
 const StyledLayout = styled(Layout)`
@@ -43,7 +49,7 @@ class Projects extends React.Component {
 
 
     handleAPI = async(e)=>{
-      axios.get(`http://127.0.0.1:8000/projects`)
+      axios.get(`${HOST}/projects`)
       .then(res => {
         let convertToLc = e.target.value.toLowerCase()
         const filterData = res.data.filter((e) => {
@@ -58,7 +64,7 @@ class Projects extends React.Component {
     }
 
     componentDidMount() {
-      axios.get(`http://127.0.0.1:8000/projects`)
+      axios.get(`${HOST}/projects`)
         .then(res => {
           const projects = res.data;
           this.setState({ projects });
@@ -71,21 +77,22 @@ class Projects extends React.Component {
 
     return (
         <StyledForm>   
-            <StyledLayout className="layout" style={{backgroundColor:"white"}}>          
                 <Form>
                    <StyledRow direction="row" style={{justifyContent:'space-between'}}>
                      <Form.Item
                         label="Search Projects:"
-                        name="search"                                              
+                        name="search"                                             
                       >
                           <StyledSearch
+                                size='large'
                                 placeholder="search"
                                 onChange={this.handleAPI}
                           />
                       </Form.Item>
                       <Form.Item>
                             <StyledProjectButton 
-                            btnType="primary"
+                            size="large"
+                            btnType="secondary"
                             title="Create Project +"
                             modaltitle="Create a Project"
                             btnstate="Submit"
@@ -99,10 +106,8 @@ class Projects extends React.Component {
                 {this.state.projects.map(({id,projectName,projectTypeId,projectCreatedby,projectDescription,createdAt})=>(
                 <ProjectCard key={id} projectId={id} title ={projectName} type={projectTypeId} projectDescription={projectDescription} createdBy={projectCreatedby} createdAt={createdAt}/>
                 ))}
-
-
-            </StyledLayout>
-        </StyledForm>              
+        </StyledForm>
+         
     )
   }
 }
