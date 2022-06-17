@@ -1,10 +1,11 @@
 from fastapi import APIRouter,Query,HTTPException
-
 from pydantic import BaseModel
 from services.db import DBService 
 #import random
 
 router = APIRouter()
+
+dbs = DBService()
 
 class Project(BaseModel):
         projectName: str
@@ -57,6 +58,7 @@ def create_projects(projectId:str):
         return HTTPException(status_code=404,detail="Project with id{project.id} does not exit!")       
     return "Success!"
 
+
 @router.put("/changeProject/{projectId}")
 def update_projects(projectId:str,updateproject:UpdateProject):                        
     projects = DBService().get_projects() 
@@ -78,6 +80,7 @@ def update_projects(projectId:str,updateproject:UpdateProject):
 # def list_project(projectId:int):
 #     report = [p for p in reports if p['id'] == projectId ]          
 #     return report[0]  if len(report) > 0 else {}
+
 
 
 

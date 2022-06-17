@@ -4,10 +4,6 @@ import UpdateButton from '../atoms/UpdateButton';
 import React from 'react';
 import styled from 'styled-components';
 
-function sayHello() {
-   alert('You clicked New Report!');
- }
-
 const StyledRow = styled(Row)`
     display: flex;
     justifyContent:space-between;
@@ -15,7 +11,7 @@ const StyledRow = styled(Row)`
 `;
 
 const ReportPanel = (props) => {
-  
+
   return(
         <Form>
                <StyledRow direction="row"
@@ -34,7 +30,7 @@ const ReportPanel = (props) => {
                         btnstate="Update"
                         projectId={props.projectId}
                        />  
-                      <RouteButton btnType="primary" title="New Report" onClick={sayHello}/>
+                      <RouteButton btnType="primary" title="New Report" onClick={() => navigate(`/projects/${projectId}/reports/create`)}/>
                       </Form.Item>
               </StyledRow>     
           </Form>

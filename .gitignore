@@ -27,3 +27,5 @@ __pycache__
 .venv
 */__pycache__
 .venv
+carbon-zero-backend/src/__pycache__
+carbon-zero-backend/__pycache__

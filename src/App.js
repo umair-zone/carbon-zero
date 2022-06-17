@@ -17,7 +17,7 @@ function App() {
       <Routes >
         <Route path="projects" element={<Projects/>}></Route>
         <Route path="projects/:projectId/reports" element={<Reports/>}></Route>
-        <Route path="projects/:projectId/reports/:reportId" element={<EmissionReport></EmissionReport>}></Route>
+        <Route path="reports/:reportId" element={<EmissionReport></EmissionReport>}></Route>
         <Route path="projects/:projectId/reports/create" element={<NewReportCement/>}></Route>
         {/* <Route exact path=""> 
           <Navigate to="projects"></Navigate>

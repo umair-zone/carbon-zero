@@ -1,17 +1,39 @@
 @import '~antd/dist/antd.min.css';
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
 
 body{
-    background-color: rgb(255, 255, 255) !important;
+    background: linear-gradient(45deg, #891dfd, #aa0361) !important;
+    font-family: 'Poppins', sans-serif !important;
+
 }
 
+.ant-card {
+    /* background-color: #1c1c1c !important ; */
+    /* color: #fff !important; */
+}
+
+.ant-card-head{
+    /* color: #fff !important; */
+}
+
+.ant-btn-primary {
+    /* background: linear-gradient(45deg, #891dfd, #aa0361) !important ; */
+    background-color: #891dfd !important ;
+    border-color: #891dfd !important;
+}
 
 .c_carousel_class{
     color: blue;
 
 }
 
-
-
 .App{
      flex: content;     
+}
+
+
+.pageWrapper h2{
+    color: #fff;
 }
