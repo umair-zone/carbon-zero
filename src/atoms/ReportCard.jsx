@@ -2,6 +2,7 @@ import {Card} from 'antd';
 import React from 'react';
 import RouteButton from './RouteButton';
 import ProjectCardFooter from './ProjectCardFooter';
+import { useNavigate } from 'react-router-dom';
 
 
 function sayHello() {
@@ -9,12 +10,16 @@ function sayHello() {
 }
 
 const ReportCard = (props) => {
-    return (
+  const naviage = useNavigate()
+
+
+
+  return (
           <Card
           title={props.title}
           extra={
            <div direction="row">  
-               <RouteButton title="View" onClick={sayHello}/>
+               <RouteButton title="View" onClick={() => naviage(`/reports/${props.id}`) }/>
             </div>
           }
           style={{

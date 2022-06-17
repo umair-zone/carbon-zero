@@ -137,7 +137,7 @@ class DBService:
     def get_reports(self, projectId):
         data = self.report_container.query_items(
             query= f''' 
-            SELECT r.id , r.name , r.params.projectName 
+            SELECT * 
             FROM Report r 
             WHERE r.projectId = '{projectId}'  ''',
             enable_cross_partition_query=True

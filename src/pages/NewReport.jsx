@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react'
-import { Button, message, Row,  Col,  Table, Form, Select, InputNumber, Switch, Checkbox} from 'antd'
+import { Button, message, Row,  Col,  Table, Form, Select, InputNumber,Typography, Checkbox} from 'antd'
 import styled from 'styled-components'
 import ProjectHeader from '../components/ProjectHeader'
 import { Link, useNavigate } from 'react-router-dom'
@@ -11,6 +11,8 @@ import page from '../atoms/Page'
 
 const { useForm } = Form
 const {PageWrapper} = page
+
+const {Title} = Typography
 
 
 
@@ -132,6 +134,9 @@ const NewReport = (props) => {
         </ProjectHeader>   
 
             {props.children} 
+            <Row>
+                <Title level={3}>Plantation</Title>
+            </Row>
             <Row style={{marginBottom:"20px"}}>
                 <div style={{marginRight:"30px"}}>Select Prefred Soil Types : </div>
 

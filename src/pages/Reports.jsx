@@ -80,7 +80,8 @@ class Reports extends React.Component {
  
       const fetchReports = async () => {
         const reponse = await axios.get(`${HOST}/projects/${this.props.param.projectId}/reports`)   
-        const reports = reponse.data.map( v => ({...v, "title":v["name"] , "createdBy":"Jhon"}))
+        const reports = reponse.data.map( v => ({...v, "title":v["name"] }))
+
         this.setState({...this.state , "reports":reports})
       }
       
@@ -109,7 +110,7 @@ class Reports extends React.Component {
               <br/>
 
               {this.state.reports.map(({id,title, projectId ,type,createdBy,createdAt})=>(
-                <ReportCard key={id} projectId={projectId} type={type} title ={title} createdBy={createdBy} createdAt={createdAt}/>
+                <ReportCard key={id} id={id} projectId={projectId} type={type} title ={title} createdBy={createdBy} createdAt={createdAt}/>
               ))}   
               
         {/* </Layout> */}
