@@ -5,7 +5,6 @@
 import React, { useState , useEffect } from 'react'
 import {Typography , Select  , Form, InputNumber, Button, Table,  Col,} from 'antd'
 import styled from 'styled-components'
-import ProjectHeader from '../components/ProjectHeader'
 import NewReport from './NewReport'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
@@ -14,12 +13,9 @@ import { HOST } from '../services/api/config'
 const {Title} = Typography
 const {Option} = Select
 
-const {useForm} = Form
 
-const PageWrapper = styled.div`
-    margin: 20px;
-    padding: 15px;
-`
+
+
 
 const SelectStyled = styled(Select)`
     width: 200px;
@@ -58,8 +54,7 @@ const NewReportCement = (props) => {
             }
 
             fetchProject()
-        }, []
-    )
+        }, [projectId])
     
     
     

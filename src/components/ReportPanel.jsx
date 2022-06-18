@@ -7,7 +7,6 @@ import RouteButton from '../atoms/RouteButton';
 import ProjectButton from '../atoms/ProjectButton';
 import React from 'react';
 import styled from 'styled-components';
-import {navigate} from 'react-router'
 import {useParams , useNavigate} from 'react-router-dom';
 
 

@@ -8,9 +8,6 @@ import ProjectCardFooter from './ProjectCardFooter';
 import { useNavigate } from 'react-router-dom';
 
 
-function sayHello() {
-  alert('You clicked View->Report!');
-}
 
 const ReportCard = (props) => {
   const naviage = useNavigate()

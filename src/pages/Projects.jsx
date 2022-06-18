@@ -3,16 +3,16 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0
 
 import React /*, { useState } */ from 'react';
-import {Layout,Form,Input,Row} from 'antd';
+import {Form,Input,Row} from 'antd';
 import ProjectCard from  '../atoms/ProjectCard'
 import ProjectButton from '../atoms/ProjectButton';
 import styled from 'styled-components';
 import {HOST} from "../services/api/config";
-import page from '../atoms/Page'
+
 import axios from 'axios';
 
 
-const { PageWrapper } =  page
+
 
 
 
@@ -38,9 +38,7 @@ const StyledForm = styled.form`
 
 `;
 
-const StyledLayout = styled(Layout)`
-    backgroundColor:white;
-`;
+
 
 class Projects extends React.Component {
 

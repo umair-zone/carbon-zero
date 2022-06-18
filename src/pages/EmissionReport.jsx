@@ -155,7 +155,7 @@ const EmissionReport = () => {
             
         }
         fetchData()
-    }, [])
+    }, [params.reportId])
         
     
     

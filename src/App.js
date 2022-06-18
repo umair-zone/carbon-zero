@@ -7,7 +7,6 @@ import { Navigate, Route, Routes} from 'react-router-dom';
 //import { Route, Routes , Navigate } from 'react-router-dom';
 import './App.css';
 import 'antd/dist/antd.min.css'; 
-import NewReportPowerPlant from './pages/NewReportPowerPlant';
 import NewReportCement from './pages/NewReportCement';
 import Projects from './pages/Projects';
 import Navbar from './components/Navbar';
@@ -15,7 +14,6 @@ import EmissionReport from './pages/EmissionReport';
 import Reports from './pages/Reports';
 import { PublicClientApplication } from '@azure/msal-browser';
 import { config} from './authConfig'
-import { Button } from 'antd';
 import Welcome from './pages/Welcome';
 import axios from 'axios';
 
