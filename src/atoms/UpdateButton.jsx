@@ -1,23 +1,22 @@
-// This Source Code Form is subject to the terms of the Mozilla Public
-// License, v. 2.0. If a copy of the MPL was not distributed with this
-// file, You can obtain one at http://mozilla.org/MPL/2.0
-
 import {Modal,Form,Button,Input,Select,} from 'antd';
 import React from 'react';
 import RouteButton from './RouteButton';
 import axios from 'axios';
 const { TextArea } = Input;
 
-class ProjectButton extends React.Component {
+class UpdateButton extends React.Component {
    
   constructor(props){
     super(props)
     this.state = {
         isModalVisible:false,
+        id:"",
         projectName:"",
-        projectTypeId:0,
+        projectTypeId:"",
         projectLocation:"",
         projectDescription:"",
+        projectCreatedby:"",
+        createdAt:"",
     }
     this.handleChangevar1 = this.handleChangevar1.bind(this);
     this.handleChangevar2 = this.handleChangevar2.bind(this);
@@ -39,38 +38,60 @@ class ProjectButton extends React.Component {
     handleCancel=()=> {
         this.setState({
           isModalVisible:false,
+          id:"",
+          projectId:"",
           projectName:"",
-          projectTypeId:0,
+          projectTypeId:"",
           projectLocation:"",
           projectDescription:"",
+          projectCreatedby:"",
+          createdAt:"",
          });
     }      
 
     handleChangevar1=(event)=> {this.setState({projectName: event.target.value});  }
     handleChangevar2=(event)=> {this.setState({projectDescription: event.target.value});  }
 
-    handleSubmit=(event)=> {
-      if(this.props.title==="Create Project +"){
-                axios.post('http://127.0.0.1:8000/projects/createProject', {
+    handleSubmit=()=> {
+                axios.put(`http://127.0.0.1:8000/projects/changeProject/${this.props.projectId}`, {
+                  id : this.props.projectId,
                   projectName: this.state.projectName,
                   projectTypeId: this.state.projectTypeId,
                   projectDescription:this.state.projectDescription,
-                  projectCreatedby: "Logged_user_",
+                  projectCreatedby: " ",
                   projectLocation: this.state.projectLocation,
-
                 })
                 .then((response) => {
                   console.log(response);
                   this.handleCancel();
                 }).catch((err)=>{
-                  alert(err)
+                  console.log(err)
                })
-       }
-       
     }
-     
+
+    
+    componentDidMount() {
+          axios.get(`http://127.0.0.1:8000/projects/${this.props.projectId}`)
+            .then(res => {
+              const projects = res.data;
+              this.setState({ 
+                projectId : this.props.projectId,
+                projectName: projects["projectName"],
+                projectTypeId:projects["projectTypeId"],
+                projectDescription:projects["projectDescription"],
+                projectLocation:projects["projectLocation"],
+                projectCreatedby:projects["projectCreatedby"],
+                createdAt:projects["createdAt"],
+              });
+
+            }).catch((err)=>{
+               alert(err)
+            })
+        }
+
      render(){
-     return (
+          
+          return (
                <>
                <RouteButton btnType ={this.props.btnType} 
                title={this.props.title}
@@ -83,31 +104,32 @@ class ProjectButton extends React.Component {
                 footer={[ ]}>
       
               <Form
-                    //form={form}
                     labelCol={{ span: 6,}}
                     wrapperCol={{span: 18,}}
                     layout="horizontal" 
                     autoComplete='off'
-                    onFinish={this.handleSubmit}                    
+                    onFinish={this.handleSubmit}              
                     >
+
                     <Form.Item 
                       name ="projectName"
                       label="Project Name"
                       value={this.state.projectName}
                       onChange={this.handleChangevar1}
                       rules={[{
-                        required:true,
+                        required:false,
                         message:"Please enter project name"
                         }]}
                       >
-                      <Input placeholder='Type Project Name'/>
+                      <Input defaultValue={this.state.projectName} />
                     </Form.Item>
                     
                     <Form.Item 
                     name = "projectTypeId"
                     label="Project TypeId"
+
                     rules={[{
-                      required:true,
+                      required:false,
                       message:"Please enter project type"
                     }]}
                     >
@@ -115,17 +137,18 @@ class ProjectButton extends React.Component {
                       placeholder="Project Type"
                       name = "projectTypeId"
                       value={this.state.projectTypeId}
+                      defaultValue={this.state.projectTypeId}
                       onChange={(value) => {
                         this.setState({projectTypeId: value})
                       }} 
                       rules={[{
-                        required:true,
+                        required:false,
                         message:"Please select project type"
                     }]}
                       >
-                        <Select.Option value={1} >Cement Manufacturer</Select.Option>
-                        <Select.Option value={2} >Highway</Select.Option>
-                        <Select.Option value={3} >Power Plant</Select.Option>
+                        <Select.Option value="1" >Cement Manufacturer</Select.Option>
+                        <Select.Option value="2" >Highway</Select.Option>
+                        <Select.Option value="3" >Power Plant</Select.Option>
                       </Select>
                     </Form.Item>
 
@@ -134,29 +157,33 @@ class ProjectButton extends React.Component {
                     name = "projectLocation"
 
                     rules={[{
-                      required:true,
+                      required:false,
                       message:"Please select a location"
                     }]}
                     >
                       <Select name="projectLocation" placeholder='Location'
+                        value={this.state.projectLocation}
+                        defaultValue={this.state.projectLocation}
                         onChange={(value) => {
                             this.setState({projectLocation: value})
                         }} 
                       >
-                          <Select.Option value="Sri Lanka">Sri Lanka</Select.Option>
+                          
+                          <Select.Option  value="Sri Lanka">Sri Lanka</Select.Option>
                       </Select>
                     </Form.Item>
                     <Form.Item 
                     label="Description"
                     name = "projectDescription"
                     value={this.state.projectDescription}
+                    
                     onChange={this.handleChangevar2}
                     rules={[{
-                      required:true,
+                      required:false,
                       message:"Please enter a description about the project"
                     }]}
                     >
-                    <TextArea placeholder="Description" rows={4} />
+                    <TextArea defaultValue={this.state.projectDescription} placeholder="Description" rows={4} />
                     </Form.Item>
                     <Form.Item>
                     </Form.Item>  
@@ -179,4 +206,4 @@ class ProjectButton extends React.Component {
           );
     }
 }      
-export default ProjectButton;
+export default UpdateButton;
