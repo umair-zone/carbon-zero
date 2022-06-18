@@ -4,13 +4,9 @@
 
 import {Form,Row} from 'antd';
 import RouteButton from '../atoms/RouteButton';
-import ProjectButton from '../atoms/ProjectButton';
+import UpdateButton from '../atoms/UpdateButton';
 import React from 'react';
 import styled from 'styled-components';
-import {navigate} from 'react-router'
-import {useParams , useNavigate} from 'react-router-dom';
-
-
 
 const StyledRow = styled(Row)`
     display: flex;
@@ -19,9 +15,6 @@ const StyledRow = styled(Row)`
 `;
 
 const ReportPanel = (props) => {
-  
-  const {projectId} = useParams();
-  const navigate = useNavigate();
 
   return(
         <Form>
@@ -35,10 +28,11 @@ const ReportPanel = (props) => {
                       </Form.Item>
                      {/*item 2  */}
                       <Form.Item>
-                      <ProjectButton 
+                      <UpdateButton 
                         title="Edit Project"
                         modaltitle="Edit a Project"
                         btnstate="Update"
+                        projectId={props.projectId}
                        />  
                       <RouteButton btnType="primary" title="New Report" onClick={() => navigate(`/projects/${projectId}/reports/create`)}/>
                       </Form.Item>
