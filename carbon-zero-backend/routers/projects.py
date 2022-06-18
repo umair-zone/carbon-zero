@@ -3,8 +3,9 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0
 
 
-from fastapi import APIRouter,Query,HTTPException
+from fastapi import APIRouter, Depends,Query,HTTPException, Request
 from pydantic import BaseModel
+from requests import request
 from services.db import DBService 
 import random
 
@@ -16,9 +17,11 @@ class Project(BaseModel):
         projectName: str
         projectTypeId: int
         projectDescription: str
-        projectCreatedby:str
         projectLocation:str        
-       
+
+
+
+
 @router.get("/")
 def list_projects():        
     projects = DBService().get_projects()
@@ -32,13 +35,12 @@ def list_project(projectId:str):
 
 
 @router.post("/createProject")
-def create_projects(project:Project):             
-   
-    DBService().create_project(
+def create_projects(project:Project , request:Request):             
+    return DBService().create_project(
         projectName=project.projectName,
         projectTypeId=project.projectTypeId,
         projectDescription=project.projectDescription,
-        projectCreatedby="Logged_user_"+str(random.randint(1,4)),
+        projectCreatedby=request.state.user.name,
         projectLocation=project.projectLocation  
     )
     return "Success!"
