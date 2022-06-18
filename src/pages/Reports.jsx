@@ -4,7 +4,7 @@
 
 import React from 'react';
 import Item from 'antd/lib/list/Item';
-import {Layout,Row,Input} from 'antd';
+import {Row,Input} from 'antd';
 import ReportPanel from '../components/ReportPanel';
 import ReportCard from  '../atoms/ReportCard';
 import styled from 'styled-components';

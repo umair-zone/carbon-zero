@@ -7,6 +7,9 @@ import RouteButton from '../atoms/RouteButton';
 import UpdateButton from '../atoms/UpdateButton';
 import React from 'react';
 import styled from 'styled-components';
+import {useParams , useNavigate} from 'react-router-dom';
+
+
 
 const StyledRow = styled(Row)`
     display: flex;
@@ -15,6 +18,9 @@ const StyledRow = styled(Row)`
 `;
 
 const ReportPanel = (props) => {
+   const navigate = useNavigate()
+   const {projectId} = useParams()
+
 
   return(
         <Form>
