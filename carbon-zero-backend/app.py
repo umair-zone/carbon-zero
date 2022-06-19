@@ -25,10 +25,11 @@ class AuthMiddleware(BaseHTTPMiddleware):
 
 origins = [
     "http://localhost:3000",
+    "https://green-tree-04ff50100.1.azurestaticapps.net"
 ]
 
 
-app.add_middleware(AuthMiddleware)
+# app.add_middleware(AuthMiddleware)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,

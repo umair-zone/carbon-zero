@@ -6,11 +6,12 @@ from azure.cosmos import CosmosClient , DatabaseProxy, PartitionKey , ContainerP
 import uuid
 import csv
 from datetime import datetime, date
+import os
 
 get_id = lambda : uuid.uuid4().hex.lower()
 
 URL = "https://carbonzero.documents.azure.com:443/"
-KEY = "BRtpDcctxA4G2wzHjrc1qutU2ELSxi9iALhP4Ais3DgtAaVE0GUL2jRz7enpUTPvmyDGoWV1a4wICDdfxWMRAw=="
+KEY =  os.environ['COSMOS_KEY'] #"BRtpDcctxA4G2wzHjrc1qutU2ELSxi9iALhP4Ais3DgtAaVE0GUL2jRz7enpUTPvmyDGoWV1a4wICDdfxWMRAw=="
 
 
 class DBService: 
