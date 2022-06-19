@@ -14,6 +14,7 @@ import EmissionReport from './pages/EmissionReport';
 import Reports from './pages/Reports';
 import { PublicClientApplication } from '@azure/msal-browser';
 import { config} from './authConfig'
+import { FUNC_KEY } from './Config';
 import Welcome from './pages/Welcome';
 import axios from 'axios';
 
@@ -37,6 +38,7 @@ function App() {
         setAuthenticated(true)
         console.log(response)
         axios.defaults.headers.common['Authorization'] = response.idToken;
+        axios.defaults.headers.common['x-functions-key'] = FUNC_KEY
         setAccount({name : response.account.name})
       }catch(err){
       setAuthenticated(false)
