@@ -6,5 +6,5 @@ import axios  from "axios";
 axios.defaults.headers.common['x-functions-key'] = 'vMrFinkMLQQNZUHy7Qa9lEjh6dGont5eEL-sVL8wHoHiAzFuZW8KCw=='
 
 
-export const SERVER_URL = 'http://127.0.0.1:8000';
+export const SERVER_URL = 'https://carbon-zero-backend.azurewebsites.net';
 export const FUNC_KEY = 'vMrFinkMLQQNZUHy7Qa9lEjh6dGont5eEL-sVL8wHoHiAzFuZW8KCw=='
