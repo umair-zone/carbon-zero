@@ -6,7 +6,7 @@
 from fastapi import APIRouter, Depends,Query,HTTPException, Request
 from pydantic import BaseModel
 from requests import request
-from services.db import DBService 
+from ..services.db import DBService 
 #import random
 
 router = APIRouter()

@@ -4,15 +4,13 @@
 
 from fastapi import FastAPI, Request, Response
 
-from routers import projects
-from routers import reports
-from routers import trees
+from .routers import projects , reports , trees
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.types import ASGIApp
 from fastapi.middleware.httpsredirect import HTTPSRedirectMiddleware
 from starlette.types import ASGIApp, Receive, Scope, Send
 from starlette.middleware.base import BaseHTTPMiddleware
-from services.auth import authenticate
+from .services.auth import authenticate
 from starlette.middleware import Middleware
 
 
