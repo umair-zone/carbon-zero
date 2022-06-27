@@ -29,7 +29,7 @@ origins = [
 ]
 
 
-app.add_middleware(AuthMiddleware)
+# app.add_middleware(AuthMiddleware)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,

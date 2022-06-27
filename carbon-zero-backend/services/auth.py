@@ -17,11 +17,11 @@ def authenticate(request , token):
 
 def validate_id_token(id_token):
     tenant_id = '8b8e48d7-1f65-46a5-bc1a-ef536b2d8188'
-    app_id = '2de9a5ee-2d63-4a63-8a68-d3b933c4b5eb'
+    app_id = '805aa6cc-defc-42d6-9a30-2c4a7ef7d372'
     token_header = jwt.get_unverified_header(id_token)
 
     res = requests.get(f'https://login.microsoftonline.com/{tenant_id}/.well-known/openid-configuration')
-    jwk_uri = 'https://login.microsoftonline.com/8b8e48d7-1f65-46a5-bc1a-ef536b2d8188/discovery/v2.0/keys'  #res.json()['jwks_uri']
+    jwk_uri = f'https://login.microsoftonline.com/{tenant_id}/discovery/v2.0/keys'  #res.json()['jwks_uri']
     
    
     x5c = None
